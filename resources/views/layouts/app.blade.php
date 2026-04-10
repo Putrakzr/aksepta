@@ -283,7 +283,7 @@
                         </div>
 
                         <a href="/contact"
-                            class="ml-4 px-6 py-2.5 bg-brand-orange text-white text-sm font-bold rounded-xl hover:bg-brand-orange-hover hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:scale-95">
+                            class="ml-4 px-6 py-2.5 bg-primary-600 text-white text-sm font-bold rounded-xl hover:bg-primary-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:scale-95">
                             {{ site_content('nav_get_started', 'Get Started') }}
                         </a>
                     </div>
@@ -395,7 +395,7 @@
 
                     <div class="px-4 pt-4">
                         <a href="/contact"
-                            class="block w-full py-4 bg-brand-orange text-white text-center font-bold rounded-2xl shadow-lg hover:bg-brand-orange-hover transition-colors">
+                            class="block w-full py-4 bg-primary-600 text-white text-center font-bold rounded-2xl shadow-lg hover:bg-primary-700 transition-colors">
                             Contact Us
                         </a>
                     </div>
