@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $article->title . ' - PT. Aksepta Strategi Indonesia')
+@section('title', $article->title .)
 
 @section('content')
     <div class="min-h-screen bg-white">

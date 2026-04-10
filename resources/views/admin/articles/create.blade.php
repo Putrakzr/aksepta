@@ -1,6 +1,6 @@
 @extends('layouts.admin_frame')
 
-@section('title', 'Manage Articles - Admin Control')
+
 
 @section('content')
     <div class="min-h-screen bg-slate-50 p-6 pb-20">
@@ -20,7 +20,8 @@
                     <div class="relative z-10 flex items-center justify-between">
                         <div>
                             <h1 class="text-4xl font-display font-black tracking-tight">
-                                {{ isset($article) ? 'Edit' : 'Draft' }} Artikel Baru.</h1>
+                                {{ isset($article) ? 'Edit' : 'Draft' }} Artikel Baru.
+                            </h1>
                             <p class="text-slate-400 mt-2">Publikasikan wawasan strategis Anda berikutnya.</p>
                         </div>
                     </div>

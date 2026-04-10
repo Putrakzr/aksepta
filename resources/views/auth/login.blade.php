@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'PT. Aksepta Strategi Indonesia')
+
 
 @section('content')
     <div class="min-h-screen bg-[#020617] flex items-center justify-center p-4 relative overflow-hidden">
