@@ -336,6 +336,7 @@
             </div>
         </div>
     </nav>
+    @endif
 
     <!-- Main Content -->
     <main id="main" class="min-h-[60vh]">
