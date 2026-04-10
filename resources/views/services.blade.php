@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('PT. Aksepta Strategi Indonesia')
+@section('title', 'PT. Aksepta Strategi Indonesia')
 
 @section('content')
     <!-- Hero Section -->
@@ -112,7 +112,7 @@
                             <p class="text-slate-400 text-xl leading-relaxed">{{ site_content('ser_tech_desc', 'Dari portofolio sederhana hingga platform skala perusahaan yang kompleks. Kami membangun solusi cepat, aman, dan skalabel.') }}</p>
                             
                             <div class="flex flex-wrap gap-4">
-                                <span class="px-4 py-2 bg-slate-800 rounded-xl text-primary-400 font-bold border border-slate-700">Laravel</span>
+                                <span class="px-4 py-2 bg-slate-800 rounded-xl text-primary-400 font-bold border border-slate-700">PHP Framework</span>
                                 <span class="px-4 py-2 bg-slate-800 rounded-xl text-primary-400 font-bold border border-slate-700">React.js</span>
                                 <span class="px-4 py-2 bg-slate-800 rounded-xl text-primary-400 font-bold border border-slate-700">Tailwind CSS</span>
                             </div>

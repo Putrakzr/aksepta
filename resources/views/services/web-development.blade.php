@@ -51,7 +51,7 @@
                     </div>
                     <div>
                         <h4 class="text-lg font-bold text-slate-900 mb-2">Backend yang Tangguh</h4>
-                        <p class="text-sm text-slate-600">Memberdayakan logika sistem dengan PHP Laravel, Node.js, dan database SQL/NoSQL yang sangat teroptimasi.</p>
+                        <p class="text-sm text-slate-600">Memberdayakan logika sistem dengan Modern PHP Framework, Node.js, dan database SQL/NoSQL yang sangat teroptimasi.</p>
                     </div>
                 </div>
 
