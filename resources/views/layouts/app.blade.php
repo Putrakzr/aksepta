@@ -115,7 +115,7 @@
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
                         <a href="/" class="flex items-center gap-3">
-                            <img src="{{ Vite::asset('resources/images/logo-aksepta.png') }}" alt="Aksepta Logo"
+                            <img src="{{ asset('storage/logo-aksepta.png') }}" alt="Aksepta Logo"
                                 class="h-10 w-auto object-contain transition-transform duration-300 hover:scale-105">
                         </a>
                     </div>
@@ -416,7 +416,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     <div class="space-y-6">
                         <a href="/" class="flex items-center gap-2">
-                            <img src="{{ Vite::asset('resources/images/logo-aksepta.png') }}" alt="Aksepta Logo"
+                            <img src="{{ asset('storage/logo-aksepta.png') }}" alt="Aksepta Logo"
                                 class="h-12 w-auto object-contain">
                         </a>
                         <p class="text-sm leading-relaxed text-slate-400">
