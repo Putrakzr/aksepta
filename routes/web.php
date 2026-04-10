@@ -94,8 +94,8 @@ Route::get('/fix-storage', function () {
     }
 });
 
-// Fallback to serve storage assets if symlink is broken
-Route::get('/storage/{filename}', function ($filename) {
+// Fallback to serve storage assets using a unique path to bypass Hostinger folder interception
+Route::get('/api/media/{filename}', function ($filename) {
     $path = storage_path('app/public/' . $filename);
     
     if (!File::exists($path)) {
