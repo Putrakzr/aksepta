@@ -39,7 +39,7 @@
                             </div>
                             <h4 class="text-xl font-bold text-slate-900 mb-2">Speak to us</h4>
                             <p class="text-slate-500 text-sm mb-4">Mon-Fri from 9am to 6pm.</p>
-                            <a href="tel:+622112345678" class="text-blue-600 font-bold hover:underline transition-all">+62 21 1234 5678</a>
+                            <a href="https://wa.me/628115842277" class="text-blue-600 font-bold hover:underline transition-all">+62 811 5842 277</a>
                         </div>
 
                         <!-- Email Card -->

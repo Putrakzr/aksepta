@@ -18,7 +18,7 @@
                 Tinggalkan metrik yang tidak relevan. Kami menggabungkan riset data dengan eksekusi visual tingkat tinggi untuk memperluas skala bisnis dan mendominasi pasar.
             </p>
             <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="https://wa.me/6281234567890?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20layanan%20Digital%20Marketing" target="_blank" class="px-8 py-4 bg-primary-600 text-white font-bold rounded-2xl shadow-xl hover:bg-primary-700 transition-all duration-300">Konsultasi Sekarang</a>
+                <a href="https://wa.me/628115842277?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20layanan%20Digital%20Marketing" target="_blank" class="px-8 py-4 bg-primary-600 text-white font-bold rounded-2xl shadow-xl hover:bg-primary-700 transition-all duration-300">Konsultasi Sekarang</a>
                 <a href="#services" class="px-8 py-4 bg-white/10 text-white font-bold rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">Jelajahi Kapabilitas</a>
             </div>
         </div>
@@ -79,7 +79,7 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="https://wa.me/6281234567890" class="relative z-10 w-full py-4 bg-slate-900 text-white text-center rounded-2xl font-black text-xs hover:bg-black transition-all shadow-lg active:scale-95">Pilih Starter</a>
+                    <a href="https://wa.me/628115842277" class="relative z-10 w-full py-4 bg-slate-900 text-white text-center rounded-2xl font-black text-xs hover:bg-black transition-all shadow-lg active:scale-95">Pilih Starter</a>
                 </div>
 
                 <!-- Growth: The Primary Bento -->
@@ -116,7 +116,7 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="https://wa.me/6281234567890" class="relative z-10 w-full py-5 bg-primary-500 text-white text-center rounded-3xl font-black text-sm hover:bg-white hover:text-primary-900 transition-all shadow-xl active:scale-95">Ambil Paket Growth</a>
+                    <a href="https://wa.me/628115842277" class="relative z-10 w-full py-5 bg-primary-500 text-white text-center rounded-3xl font-black text-sm hover:bg-white hover:text-primary-900 transition-all shadow-xl active:scale-95">Ambil Paket Growth</a>
                 </div>
 
                 <!-- Strategic: Executive Bento -->
@@ -148,7 +148,7 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="https://wa.me/6281234567890" class="relative z-10 w-full py-4 bg-slate-900 text-white text-center rounded-2xl font-black text-xs hover:bg-black transition-all shadow-lg active:scale-95">Pesan Strategic</a>
+                    <a href="https://wa.me/628115842277" class="relative z-10 w-full py-4 bg-slate-900 text-white text-center rounded-2xl font-black text-xs hover:bg-black transition-all shadow-lg active:scale-95">Pesan Strategic</a>
                 </div>
             </div>
 
@@ -348,7 +348,7 @@
                         <p class="text-sm font-semibold text-primary-300 tracking-wide uppercase">Optimasi Mesin Pencari</p>
                     </div>
                     <p class="text-slate-400 leading-relaxed mb-10 flex-1 relative z-10">Strategi teknis dan pembuatan konten agar website Anda muncul di halaman pertama pencarian Google saat calon klien mencari solusi. Ini adalah investasi aset digital jangka panjang yang mendatangkan trafik organik (leads) tanpa harus terus-menerus membayar biaya iklan.</p>
-                    <a href="https://wa.me/6281234567890?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20Layanan%20SEO" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-primary-500 hover:border-primary-500 hover:text-white transition-all w-full relative z-10">Konsultasi Sekarang</a>
+                    <a href="https://wa.me/628115842277?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20Layanan%20SEO" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-primary-500 hover:border-primary-500 hover:text-white transition-all w-full relative z-10">Konsultasi Sekarang</a>
                 </div>
 
                 <!-- Layanan Ads -->
@@ -362,7 +362,7 @@
                         <p class="text-sm font-semibold text-primary-300 tracking-wide uppercase">Periklanan Berbasis Kinerja</p>
                     </div>
                     <p class="text-slate-400 leading-relaxed mb-10 flex-1 relative z-10">Pemasangan iklan berbayar (Meta, Google, TikTok Ads) yang didesain murni untuk ROI (Return on Investment). Kami tidak mengejar jumlah tayangan semu, melainkan menargetkan audiens spesifik untuk menghasilkan konversi nyata—seperti pengumpulan prospek, kunjungan ke website, atau penjualan langsung.</p>
-                    <a href="https://wa.me/6281234567890?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20Layanan%20Ads" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-primary-500 hover:border-primary-500 hover:text-white transition-all w-full relative z-10">Konsultasi Sekarang</a>
+                    <a href="https://wa.me/628115842277?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20Layanan%20Ads" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-primary-500 hover:border-primary-500 hover:text-white transition-all w-full relative z-10">Konsultasi Sekarang</a>
                 </div>
 
                 <!-- Layanan KOL -->
@@ -376,7 +376,7 @@
                         <p class="text-sm font-semibold text-primary-300 tracking-wide uppercase">Manajemen Influencer</p>
                     </div>
                     <p class="text-slate-400 leading-relaxed mb-10 flex-1 relative z-10">Pemanfaatan pihak ketiga untuk mengakselerasi kepercayaan pasar. Kami menyeleksi dan berkolaborasi dengan figur publik atau pakar industri yang memiliki otoritas. Ini bukan sekadar mencari influencer dengan followers terbanyak, melainkan memastikan audiens mereka 100% relevan dengan target pasar Anda.</p>
-                    <a href="https://wa.me/6281234567890?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20Layanan%20KOL" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-primary-500 hover:border-primary-500 hover:text-white transition-all w-full relative z-10">Konsultasi Sekarang</a>
+                    <a href="https://wa.me/628115842277?text=Halo%20Aksepta,%20saya%20ingin%20konsultasi%20tentang%20Layanan%20KOL" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-primary-500 hover:border-primary-500 hover:text-white transition-all w-full relative z-10">Konsultasi Sekarang</a>
                 </div>
             </div>
         </div>

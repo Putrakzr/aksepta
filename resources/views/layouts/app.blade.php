@@ -474,7 +474,7 @@
                             </li>
                             <li class="flex items-start gap-3">
                                 <i data-lucide="phone" class="w-5 h-5 text-primary-500 flex-shrink-0"></i>
-                                <span>+62 21 0000 0000</span>
+                                <span>+62 811 5842 277</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <i data-lucide="map-pin" class="w-5 h-5 text-primary-500 flex-shrink-0"></i>

@@ -16,7 +16,8 @@
                     <div class="absolute inset-0 bg-gradient-to-tr from-rose-600/20 to-transparent"></div>
                     <div class="relative z-10">
                         <h1 class="text-4xl font-display font-black tracking-tight">
-                            {{ isset($gallery) ? 'Edit' : 'Tambah' }} Gambar Baru.</h1>
+                            {{ isset($gallery) ? 'Edit' : 'Tambah' }} Gambar Baru.
+                        </h1>
                         <p class="text-slate-400 mt-2">Kelola aset visual cerita Anda.</p>
                     </div>
                 </div>
