@@ -3,14 +3,29 @@
 @section('title', 'Admin Dashboard - Aksepta')
 
 @section('content')
-<div class="h-screen bg-slate-50 flex overflow-hidden" x-data="{ sidebarOpen: true }">
+<div class="h-screen bg-slate-50 flex overflow-hidden" x-data="{ sidebarOpen: window.innerWidth > 768 }">
+    <!-- Mobile Backdrop -->
+    <div x-show="sidebarOpen" 
+         class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 md:hidden"
+         @click="sidebarOpen = false"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"></div>
+
     <!-- Sidebar -->
-    <div class="bg-slate-900 text-slate-400 w-72 flex-shrink-0 transition-all duration-300 flex flex-col hidden md:flex"
-         :class="sidebarOpen ? 'w-72' : 'w-20'">
+    <div class="bg-slate-900 text-slate-400 flex-shrink-0 transition-all duration-300 flex flex-col fixed inset-y-0 left-0 z-50 md:relative md:translate-x-0"
+         :class="sidebarOpen ? 'translate-x-0 w-72' : '-translate-x-full md:translate-x-0 md:w-20'">
         
         <div class="p-6 flex items-center gap-3 border-b border-slate-800/50">
             <div class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold">A</div>
             <span class="text-white font-bold tracking-tight" x-show="sidebarOpen">Aksepta Admin</span>
+            <!-- Mobile Close Button -->
+            <button @click="sidebarOpen = false" class="md:hidden ml-auto text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
         </div>
 
         <nav class="flex-1 p-4 space-y-8 overflow-y-auto">

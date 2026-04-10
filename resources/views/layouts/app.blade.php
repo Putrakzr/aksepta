@@ -117,6 +117,7 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-1 lg:space-x-4">
+                    @if(!request()->is('admin*'))
                     <a href="/" class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 rounded-lg transition-colors">{{ site_content('nav_home', 'Beranda') }}</a>
 
                     <div class="relative" x-data="{ servicesOpen: false }">
@@ -234,6 +235,7 @@
                             </a>
                         </div>
                     </div>
+                    @endif
                     
                     <a href="/contact" class="ml-4 px-6 py-2.5 bg-brand-orange text-white text-sm font-bold rounded-xl hover:bg-brand-orange-hover hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:scale-95">
                         {{ site_content('nav_get_started', 'Get Started') }}
@@ -258,75 +260,77 @@
              class="md:hidden bg-white border-t border-slate-100 overflow-hidden">
             <div class="px-4 pt-2 pb-6 space-y-1">
             <div class="px-4 pt-2 pb-6 space-y-1">
-                <a href="/" class="block px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">Home</a>
-                
-                <!-- Mobile Services Dropdown -->
-                <div class="space-y-1">
-                    <button @click="mobileServicesOpen = !mobileServicesOpen" 
-                            class="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">
-                        Our Services
-                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300" :class="mobileServicesOpen ? 'rotate-180' : ''"></i>
-                    </button>
-                    <div x-show="mobileServicesOpen" x-collapse class="pl-4 pr-2 space-y-1">
-                        <a href="{{ route('services.digital-marketing') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="trending-up" class="w-4 h-4 text-primary-500"></i> Digital Marketing
-                        </a>
-                        <a href="{{ route('services.creative-production') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="video" class="w-4 h-4 text-accent-rose"></i> Creative Production
-                        </a>
-                        <a href="{{ route('services.website-development') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="code-2" class="w-4 h-4 text-primary-600"></i> Web Development
-                        </a>
-                        <a href="{{ route('services.training') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="award" class="w-4 h-4 text-accent-amber"></i> Training
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Mobile Ecosystem Dropdown -->
-                <div class="space-y-1">
-                    <button @click="mobileEcosystemOpen = !mobileEcosystemOpen" 
-                            class="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">
-                        Ecosystem
-                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300" :class="mobileEcosystemOpen ? 'rotate-180' : ''"></i>
-                    </button>
-                    <div x-show="mobileEcosystemOpen" x-collapse class="pl-4 pr-2 space-y-2">
-                        <a href="{{ route('ecosystem.hub') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="globe" class="w-4 h-4 text-primary-500"></i> Aksepta Hub
-                        </a>
-                        <div class="grid grid-cols-2 gap-2 p-2">
-                            <a href="{{ route('ecosystem.adma') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ADMA</a>
-                            <a href="{{ route('ecosystem.admo') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ADMO</a>
-                            <a href="{{ route('ecosystem.apex') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">APEX</a>
-                            <a href="{{ route('ecosystem.adds') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ADDS</a>
-                            <a href="{{ route('ecosystem.abco') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ABCO</a>
-                            <a href="{{ route('ecosystem.ario') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ARIO</a>
+                    @if(!request()->is('admin*'))
+                    <a href="/" class="block px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">Home</a>
+                    
+                    <!-- Mobile Services Dropdown -->
+                    <div class="space-y-1">
+                        <button @click="mobileServicesOpen = !mobileServicesOpen" 
+                                class="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">
+                            Our Services
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300" :class="mobileServicesOpen ? 'rotate-180' : ''"></i>
+                        </button>
+                        <div x-show="mobileServicesOpen" x-collapse class="pl-4 pr-2 space-y-1">
+                            <a href="{{ route('services.digital-marketing') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="trending-up" class="w-4 h-4 text-primary-500"></i> Digital Marketing
+                            </a>
+                            <a href="{{ route('services.creative-production') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="video" class="w-4 h-4 text-accent-rose"></i> Creative Production
+                            </a>
+                            <a href="{{ route('services.website-development') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="code-2" class="w-4 h-4 text-primary-600"></i> Web Development
+                            </a>
+                            <a href="{{ route('services.training') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="award" class="w-4 h-4 text-accent-amber"></i> Training
+                            </a>
                         </div>
                     </div>
-                </div>
 
-                <!-- Mobile Portfolio Dropdown -->
-                <div class="space-y-1">
-                    <button @click="mobilePortfolioOpen = !mobilePortfolioOpen" 
-                            class="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">
-                        Portfolio
-                        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300" :class="mobilePortfolioOpen ? 'rotate-180' : ''"></i>
-                    </button>
-                    <div x-show="mobilePortfolioOpen" x-collapse class="pl-4 pr-2 space-y-1">
-                        <a href="{{ route('portfolio.index') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="briefcase" class="w-4 h-4 text-slate-500"></i> Our Work
-                        </a>
-                        <a href="{{ route('portfolio.articles') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="book-open" class="w-4 h-4 text-primary-500"></i> Articles
-                        </a>
-                        <a href="{{ route('portfolio.gallery') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="image" class="w-4 h-4 text-rose-500"></i> Gallery
-                        </a>
-                        <a href="{{ route('portfolio.documentation') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
-                            <i data-lucide="file-text" class="w-4 h-4 text-indigo-500"></i> Documentation
-                        </a>
+                    <!-- Mobile Ecosystem Dropdown -->
+                    <div class="space-y-1">
+                        <button @click="mobileEcosystemOpen = !mobileEcosystemOpen" 
+                                class="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">
+                            Ecosystem
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300" :class="mobileEcosystemOpen ? 'rotate-180' : ''"></i>
+                        </button>
+                        <div x-show="mobileEcosystemOpen" x-collapse class="pl-4 pr-2 space-y-2">
+                            <a href="{{ route('ecosystem.hub') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="globe" class="w-4 h-4 text-primary-500"></i> Aksepta Hub
+                            </a>
+                            <div class="grid grid-cols-2 gap-2 p-2">
+                                <a href="{{ route('ecosystem.adma') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ADMA</a>
+                                <a href="{{ route('ecosystem.admo') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ADMO</a>
+                                <a href="{{ route('ecosystem.apex') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">APEX</a>
+                                <a href="{{ route('ecosystem.adds') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ADDS</a>
+                                <a href="{{ route('ecosystem.abco') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ABCO</a>
+                                <a href="{{ route('ecosystem.ario') }}" class="p-2 bg-slate-50 rounded-lg text-[10px] font-bold text-center">ARIO</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                    <!-- Mobile Portfolio Dropdown -->
+                    <div class="space-y-1">
+                        <button @click="mobilePortfolioOpen = !mobilePortfolioOpen" 
+                                class="w-full flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-900 hover:bg-primary-50 rounded-xl">
+                            Portfolio
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300" :class="mobilePortfolioOpen ? 'rotate-180' : ''"></i>
+                        </button>
+                        <div x-show="mobilePortfolioOpen" x-collapse class="pl-4 pr-2 space-y-1">
+                            <a href="{{ route('portfolio.index') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="briefcase" class="w-4 h-4 text-slate-500"></i> Our Work
+                            </a>
+                            <a href="{{ route('portfolio.articles') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="book-open" class="w-4 h-4 text-primary-500"></i> Articles
+                            </a>
+                            <a href="{{ route('portfolio.gallery') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="image" class="w-4 h-4 text-rose-500"></i> Gallery
+                            </a>
+                            <a href="{{ route('portfolio.documentation') }}" class="flex items-center gap-3 p-3 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl">
+                                <i data-lucide="file-text" class="w-4 h-4 text-indigo-500"></i> Documentation
+                            </a>
+                        </div>
+                    </div>
+                    @endif
 
                 <div class="px-4 pt-4">
                     <a href="/contact" class="block w-full py-4 bg-brand-orange text-white text-center font-bold rounded-2xl shadow-lg hover:bg-brand-orange-hover transition-colors">
