@@ -88,8 +88,14 @@ Route::get('/fix-storage', function () {
             }
         }
         
-        Artisan::call('storage:link');
-        return "Storage link fixed successfully!";
+        $target = storage_path('app/public');
+        $link = public_path('storage');
+        
+        if (symlink($target, $link)) {
+            return "Storage link fixed successfully (using manual symlink)!";
+        } else {
+            return "Failed to create symlink even with manual call.";
+        }
     } catch (\Exception $e) {
         return "Error fixing storage link: " . $e->getMessage();
     }
