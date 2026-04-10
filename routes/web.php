@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -71,3 +74,40 @@ Route::middleware(['auth', 'superadmin'])->prefix('admin')->name('admin.')->grou
     Route::resource('documentations', App\Http\Controllers\Admin\AdminDocumentationController::class)->except(['show']);
     Route::resource('team', App\Http\Controllers\Admin\AdminTeamController::class)->except(['show']);
 });
+
+// Deployment & Asset Fixes (Hostinger)
+Route::get('/fix-storage', function () {
+    try {
+        // Remove existing link if exists
+        $link = public_path('storage');
+        if (file_exists($link)) {
+            if (is_link($link)) {
+                unlink($link);
+            } else {
+                File::deleteDirectory($link);
+            }
+        }
+        
+        Artisan::call('storage:link');
+        return "Storage link fixed successfully!";
+    } catch (\Exception $e) {
+        return "Error fixing storage link: " . $e->getMessage();
+    }
+});
+
+// Fallback to serve storage assets if symlink is broken
+Route::get('/storage/{filename}', function ($filename) {
+    $path = storage_path('app/public/' . $filename);
+    
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    
+    return $response;
+})->where('filename', '.*');
