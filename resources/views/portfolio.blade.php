@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Portfolio - Showcasing Excellence')
+@section('PT. Aksepta Strategi Indonesia')
 
 @section('content')
     <!-- Hero Section -->

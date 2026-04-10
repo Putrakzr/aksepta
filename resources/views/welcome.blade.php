@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home - Strategic Digital Solutions')
+@section('PT. Aksepta Strategi Indonesia')
 
 @section('content')
     <!-- Hero Section -->

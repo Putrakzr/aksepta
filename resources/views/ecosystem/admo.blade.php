@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ADMO - Pengelolaan Aset Media & Monetisasi Digital')
+@section('title', 'PT. Aksepta Strategi Indonesia')
 
 @section('content')
     <!-- Unit Hero: High-Impact Monetization -->
