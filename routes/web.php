@@ -88,16 +88,9 @@ Route::get('/fix-storage', function () {
             }
         }
         
-        $target = storage_path('app/public');
-        $link = public_path('storage');
-        
-        if (symlink($target, $link)) {
-            return "Storage link fixed successfully (using manual symlink)!";
-        } else {
-            return "Failed to create symlink even with manual call.";
-        }
+        return "Symlink is disabled on this server. Successfully cleared the 'public/storage' folder to activate the Fallback Asset system. Your logo should now appear!";
     } catch (\Exception $e) {
-        return "Error fixing storage link: " . $e->getMessage();
+        return "Error clearing storage link: " . $e->getMessage();
     }
 });
 
