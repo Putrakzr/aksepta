@@ -22,6 +22,22 @@
                 </button>
             </div>
         </div>
+
+        <!-- Mobile Horizontal Categories -->
+        <div class="lg:hidden mt-6 -mx-8 px-8 overflow-x-auto no-scrollbar flex items-center gap-2 pb-2">
+            <button @click="activeGroup = 'all'" 
+                :class="activeGroup === 'all' ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white text-slate-500 border-slate-200 hover:border-primary-300'"
+                class="whitespace-nowrap px-4 py-2 text-xs font-bold rounded-full border transition-all">
+                Semua Kategori
+            </button>
+            @foreach($groups as $group)
+            <button @click="activeGroup = @js($group)" 
+                :class="activeGroup === @js($group) ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white text-slate-500 border-slate-200 hover:border-primary-300'"
+                class="whitespace-nowrap px-4 py-2 text-xs font-bold rounded-full border transition-all">
+                {{ $group ?: 'Lainnya' }}
+            </button>
+            @endforeach
+        </div>
     </div>
 
     <!-- Main Dynamic Layout -->
@@ -140,4 +156,13 @@
         lucide.createIcons();
     });
 </script>
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
 @endsection
