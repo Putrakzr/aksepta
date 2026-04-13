@@ -2,6 +2,10 @@
 
 @section('content')
 <div class="h-full flex flex-col" x-data="{ searchQuery: '', activeGroup: 'all' }">
+    @php
+        $groups = $contents->pluck('group')->unique()->sort()->values();
+    @endphp
+
     <!-- Header with Search -->
     <div class="shrink-0 bg-white border-b border-slate-200 px-8 py-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -54,10 +58,6 @@
                 
                 <div class="my-4 border-t border-slate-100"></div>
                 
-                @php
-                    $groups = $contents->pluck('group')->unique()->sort()->values();
-                @endphp
-
                 @foreach($groups as $group)
                 <button @click="activeGroup = @js($group)" 
                     :class="activeGroup === @js($group) ? 'bg-primary-50 text-primary-600 border-primary-200' : 'text-slate-500 hover:bg-slate-50 border-transparent'"
