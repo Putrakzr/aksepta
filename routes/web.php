@@ -65,6 +65,8 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 // Admin Routes (Authenticated & SuperAdmin only)
 Route::middleware(['auth', 'superadmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
+    Route::get('/settings', [App\Http\Controllers\Admin\AdminController::class, 'settingsIndex'])->name('settings.index');
+    Route::post('/settings', [App\Http\Controllers\Admin\AdminController::class, 'settingsUpdate'])->name('settings.update');
     Route::patch('/content/{content}', [App\Http\Controllers\Admin\AdminController::class, 'update'])->name('content.update');
     
     // Portfolio CRUDs

@@ -16,6 +16,7 @@ class SiteContentSeeder extends Seeder
             ['key' => 'nav_ecosystem', 'value' => 'Ekosistem', 'group' => 'Navigation', 'hint' => 'Label menu Ekosistem'],
             ['key' => 'nav_portfolio', 'value' => 'Portofolio', 'group' => 'Navigation', 'hint' => 'Label menu Portofolio'],
             ['key' => 'nav_contact', 'value' => 'Hubungi Kami', 'group' => 'Navigation', 'hint' => 'Label tombol CTA di Navbar'],
+            ['key' => 'site_logo', 'value' => '/api/media/logo-aksepta.png', 'group' => 'Global', 'hint' => 'URL logo utama situs'],
             
             ['key' => 'footer_about_title', 'value' => 'Tentang Aksepta', 'group' => 'Footer', 'hint' => 'Judul kolom pertama footer'],
             ['key' => 'footer_about_desc', 'value' => 'Aksepta adalah ekosistem strategi digital terintegrasi yang berfokus pada riset, teknologi, dan eksekusi visual untuk pertumbuhan bisnis Anda.', 'group' => 'Footer', 'hint' => 'Deskripsi singkat di footer'],

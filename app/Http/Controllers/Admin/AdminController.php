@@ -22,10 +22,32 @@ class AdminController extends Controller
                 ['label' => 'Galeri Foto', 'icon' => 'image', 'route' => 'admin.galleries.index'],
                 ['label' => 'Dokumentasi & File', 'icon' => 'file-text', 'route' => 'admin.documentations.index'],
                 ['label' => 'Struktur Organisasi', 'icon' => 'users', 'route' => 'admin.team.index'],
+            ],
+            'Konfigurasi Situs' => [
+                ['label' => 'Setelan Umum', 'icon' => 'settings', 'route' => 'admin.settings.index'],
             ]
         ];
 
         return view('admin.dashboard', compact('navigation'));
+    }
+
+    public function settingsIndex()
+    {
+        $contents = SiteContent::orderBy('group')->orderBy('key')->get();
+        return view('admin.settings.index', compact('contents'));
+    }
+
+    public function settingsUpdate(Request $request)
+    {
+        foreach ($request->content as $key => $value) {
+            $content = SiteContent::where('key', $key)->first();
+            if ($content) {
+                $content->update(['value' => $value]);
+                Cache::forget("site_content_{$key}");
+            }
+        }
+
+        return back()->with('success', 'Pengaturan situs berhasil diperbarui!');
     }
 
     public function update(Request $request, SiteContent $content)
