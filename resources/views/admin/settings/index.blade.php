@@ -4,35 +4,21 @@
 <div class="h-full flex flex-col" x-data="{ 
     searchQuery: '', 
     activeGroup: 'all',
-    @php
-        $groups = $contents->pluck('group')->unique()->sort()->values();
-    @endphp
-    groups: @js($groups),
     
-    matchItem(itemKey, itemLabel, itemGroup) {
-        if (this.searchQuery === '') {
-            return this.activeGroup === 'all' || itemGroup === this.activeGroup;
-        }
-        const query = this.searchQuery.toLowerCase();
-        const matchesSearch = itemKey.toLowerCase().includes(query) || 
-                            itemLabel.toLowerCase().includes(query);
-        const matchesGroup = this.activeGroup === 'all' || itemGroup === this.activeGroup;
-        return matchesSearch && matchesGroup;
+    // Check if an individual item matches the search
+    matchItem(key, label) {
+        if (!this.searchQuery) return true;
+        const q = this.searchQuery.toLowerCase();
+        return key.toLowerCase().includes(q) || (label && label.toLowerCase().includes(q));
     },
-    
-    isGroupVisible(groupName, items) {
+
+    // Check if a group should be visible (has matching items or group matched)
+    isGroupVisible(groupName, itemsJson) {
         if (this.activeGroup !== 'all' && groupName !== this.activeGroup) return false;
-        if (this.searchQuery === '') return true;
-        
-        // Count matching items in this group
-        let matchCount = 0;
-        items.forEach(item => {
-            if (item.key.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
-                (item.label && item.label.toLowerCase().includes(this.searchQuery.toLowerCase()))) {
-                matchCount++;
-            }
-        });
-        return matchCount > 0;
+        if (!this.searchQuery) return true;
+
+        const items = JSON.parse(itemsJson);
+        return items.some(item => this.matchItem(item.key, item.label));
     }
 }">
     <!-- Header with Search -->
@@ -71,6 +57,10 @@
                 
                 <div class="my-4 border-t border-slate-100"></div>
                 
+                @php
+                    $groups = $contents->pluck('group')->unique()->sort()->values();
+                @endphp
+
                 @foreach($groups as $group)
                 <button @click="activeGroup = '{{ $group }}'" 
                     :class="activeGroup === '{{ $group }}' ? 'bg-primary-50 text-primary-600 border-primary-200' : 'text-slate-500 hover:bg-slate-50 border-transparent'"
@@ -102,7 +92,7 @@
 
                 <div class="space-y-10 pb-20">
                     @foreach($groupedContents as $group => $items)
-                    <div x-show="isGroupVisible('{{ $group }}', @js($items))" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-6">
+                    <div x-show="isGroupVisible('{{ $group }}', '{{ addslashes($items->toJson()) }}')" class="space-y-6">
                         <div class="flex items-center gap-4">
                             <h3 class="text-sm font-black text-slate-900 uppercase tracking-[0.2em]">{{ $group ?: 'Lainnya' }}</h3>
                             <div class="h-px flex-1 bg-slate-200"></div>
@@ -110,7 +100,7 @@
 
                         <div class="grid grid-cols-1 gap-6">
                             @foreach($items as $content)
-                            <div x-show="searchQuery === '' || '{{ strtolower($content->key) }}'.includes(searchQuery.toLowerCase()) || '{{ strtolower($content->label ?: $content->key) }}'.includes(searchQuery.toLowerCase())" 
+                            <div x-show="matchItem('{{ addslashes($content->key) }}', '{{ addslashes($content->label ?: $content->key) }}')" 
                                 class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm hover:shadow-md transition-shadow group/card">
                                 <div class="space-y-4">
                                     <div class="flex items-start justify-between">
@@ -127,11 +117,8 @@
 
                                     @if($content->key == 'site_logo')
                                         <div class="flex flex-col md:flex-row gap-6 items-center">
-                                            <div class="w-32 h-32 bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 flex items-center justify-center p-4 relative group/logo shrink-0">
-                                                <img src="{{ $content->value }}" alt="Logo" class="w-full h-full object-contain relative z-10">
-                                                <div class="absolute inset-0 bg-slate-100 opacity-0 group-hover/logo:opacity-100 transition-opacity flex items-center justify-center z-20">
-                                                    <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Logo Preview</span>
-                                                </div>
+                                            <div class="w-32 h-32 bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 flex items-center justify-center p-4 shrink-0">
+                                                <img src="{{ $content->value }}" alt="Logo" class="w-full h-full object-contain">
                                             </div>
                                             <div class="flex-1 w-full space-y-2">
                                                 <div class="relative">
@@ -163,30 +150,15 @@
                     </div>
                     @endforeach
                 </div>
-
-                <!-- Empty State -->
-                <div x-show="searchQuery !== '' && document.querySelectorAll('.group/card:not([style*=\'display: none\'])').length === 0" 
-                    class="py-20 text-center animate-fade-in" style="display: none;">
-                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i data-lucide="search-slash" class="w-10 h-10 text-slate-300"></i>
-                    </div>
-                    <h4 class="text-xl font-display font-bold text-slate-900 mb-2">Tidak ditemukan</h4>
-                    <p class="text-sm text-slate-500">Coba kata kunci lain untuk menemukan pengaturan yang dimaksud.</p>
-                </div>
             </form>
         </main>
     </div>
 </div>
 
 <script>
-    // Refresh Lucide icons after Alpine updates
-    document.addEventListener('alpine:init', () => {
-        Alpine.watch(() => searchQuery, () => {
-            setTimeout(() => lucide.createIcons(), 50);
-        });
-        Alpine.watch(() => activeGroup, () => {
-            setTimeout(() => lucide.createIcons(), 50);
-        });
+    // Initialize Lucide icons on start
+    document.addEventListener('DOMContentLoaded', () => {
+        lucide.createIcons();
     });
 </script>
 @endsection
