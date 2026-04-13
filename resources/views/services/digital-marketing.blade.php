@@ -68,14 +68,12 @@
                         </div>
 
                         <ul class="space-y-4 mb-10">
+
                             <li class="flex items-center gap-3 text-sm font-bold text-slate-700">
-                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">1</span> 20 Poin Konten Bulanan
+                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">1</span> Kelola 3 Platform Utama
                             </li>
                             <li class="flex items-center gap-3 text-sm font-bold text-slate-700">
-                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">2</span> Kelola 3 Platform Utama
-                            </li>
-                            <li class="flex items-center gap-3 text-sm font-bold text-slate-700">
-                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">3</span> Admin Posting & Respon
+                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">2</span> Admin Posting & Respon
                             </li>
                         </ul>
                     </div>
@@ -105,14 +103,12 @@
                         </div>
 
                         <ul class="space-y-4 mb-10">
+
                             <li class="flex items-center gap-3 text-sm font-bold text-white">
-                                <span class="w-5 h-5 rounded-full bg-primary-500 flex items-center justify-center text-[10px]">1</span> 50 Poin Konten Bulanan
+                                <span class="w-5 h-5 rounded-full bg-primary-500 flex items-center justify-center text-[10px]">1</span> Admin Interaktif (Komen & DM)
                             </li>
                             <li class="flex items-center gap-3 text-sm font-bold text-white">
-                                <span class="w-5 h-5 rounded-full bg-primary-500 flex items-center justify-center text-[10px]">2</span> Admin Interaktif (Komen & DM)
-                            </li>
-                            <li class="flex items-center gap-3 text-sm font-bold text-white">
-                                <span class="w-5 h-5 rounded-full bg-primary-500 flex items-center justify-center text-[10px]">3</span> Ads & KOL Management
+                                <span class="w-5 h-5 rounded-full bg-primary-500 flex items-center justify-center text-[10px]">2</span> Ads & KOL Management
                             </li>
                         </ul>
                     </div>
@@ -137,14 +133,12 @@
                         </div>
 
                         <ul class="space-y-4 mb-10">
+
                             <li class="flex items-center gap-3 text-sm font-bold text-slate-700">
-                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">1</span> 80+ Poin Konten (Custom)
+                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">1</span> Full Executive Reporting
                             </li>
                             <li class="flex items-center gap-3 text-sm font-bold text-slate-700">
-                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">2</span> Full Executive Reporting
-                            </li>
-                            <li class="flex items-center gap-3 text-sm font-bold text-slate-700">
-                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">3</span> Strategi Multi-Platform Terpadu
+                                <span class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-500">2</span> Strategi Multi-Platform Terpadu
                             </li>
                         </ul>
                     </div>
@@ -220,57 +214,7 @@
         </div>
     </section>
 
-    <!-- Content Point System Section -->
-    <section class="py-24 bg-white" id="content-points">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-display font-bold text-slate-900 mb-8">Sistem Poin Konten</h2>
-                <div class="space-y-6 text-lg text-slate-600 text-left leading-relaxed bg-slate-50 p-8 rounded-[32px] border border-slate-100">
-                    <p>Di Aksepta, kami percaya bahwa setiap brand memiliki kebutuhan konten yang unik dan dinamis. Oleh karena itu, kami memperkenalkan <strong class="text-primary-600">Sistem Poin Konten</strong>, sebuah pendekatan fleksibel yang memberikan Anda kontrol penuh atas jenis konten yang kami produksi setiap bulan.</p>
-                    <p>Poin Konten merupakan "budget kreatif" Anda. Setiap paket layanan kami datang dengan alokasi poin bulanan. Anda bebas menggunakan poin ini untuk "membeli" berbagai jenis konten sesuai dengan nilai poinnya.</p>
-                    <p>Setiap jenis konten memiliki nilai poin yang berbeda, tergantung pada tingkat kompleksitas dan waktu produksinya:</p>
-                </div>
-            </div>
 
-            <!-- Table -->
-            <div class="overflow-hidden rounded-3xl border border-primary-100 shadow-2xl shadow-primary-900/5">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-primary-900 text-white">
-                            <th class="py-5 px-8 font-bold text-xl border-b border-primary-800">Jenis Konten</th>
-                            <th class="py-5 px-8 font-bold text-xl border-b border-primary-800 text-center w-48 border-l border-primary-800">Nilai Poin</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 bg-white">
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="py-5 px-8 text-slate-700 font-semibold group-hover:text-primary-700 transition-colors">Grafis Statis (Feed/Story)</td>
-                            <td class="py-5 px-8 text-center text-primary-600 font-extrabold bg-primary-50/30 border-l border-slate-100 group-hover:bg-primary-50 transition-colors text-lg">1 Poin</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="py-5 px-8 text-slate-700 font-semibold group-hover:text-primary-700 transition-colors">Grafis Animasi (Feed/Story)</td>
-                            <td class="py-5 px-8 text-center text-primary-600 font-extrabold bg-primary-50/30 border-l border-slate-100 group-hover:bg-primary-50 transition-colors text-lg">2 Poin</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="py-5 px-8 text-slate-700 font-semibold group-hover:text-primary-700 transition-colors">Grafis Carousel (Multi-slide)</td>
-                            <td class="py-5 px-8 text-center text-primary-600 font-extrabold bg-primary-50/30 border-l border-slate-100 group-hover:bg-primary-50 transition-colors text-lg">2 Poin</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="py-5 px-8 text-slate-700 font-semibold group-hover:text-primary-700 transition-colors">Video Simpel (Reels/TikTok &lt; 30 detik)</td>
-                            <td class="py-5 px-8 text-center text-primary-600 font-extrabold bg-primary-50/30 border-l border-slate-100 group-hover:bg-primary-50 transition-colors text-lg">3 Poin</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="py-5 px-8 text-slate-700 font-semibold group-hover:text-primary-700 transition-colors">Video Standar (&lt; 60 detik)</td>
-                            <td class="py-5 px-8 text-center text-primary-600 font-extrabold bg-primary-50/30 border-l border-slate-100 group-hover:bg-primary-50 transition-colors text-lg">4 Poin</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors group">
-                            <td class="py-5 px-8 text-slate-700 font-semibold group-hover:text-primary-700 transition-colors">Video Kompleks (&gt; 60 detik)</td>
-                            <td class="py-5 px-8 text-center text-primary-600 font-extrabold bg-primary-50/30 border-l border-slate-100 group-hover:bg-primary-50 transition-colors text-lg">5 Poin</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
 
     <!-- Strategy Section -->
     <section class="py-24 bg-slate-50" id="services">
