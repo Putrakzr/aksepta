@@ -42,15 +42,15 @@ if (!function_exists('get_site_logo')) {
         // Try different paths for reliability
         // 1. Direct Public Folder
         if (file_exists(public_path($logo))) {
-            return asset($logo);
+            return "/{$logo}";
         }
 
         // 2. Symlinked Storage
         if (file_exists(public_path("storage/{$logo}"))) {
-            return asset("storage/{$logo}");
+            return "/storage/{$logo}";
         }
 
         // 3. Fallback Controller (Bypass Symlink) - Best for Hostinger Shared
-        return url("/api/media/{$logo}");
+        return "/api/media/{$logo}";
     }
 }
