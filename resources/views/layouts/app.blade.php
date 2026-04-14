@@ -457,10 +457,10 @@
                         <h4 class="text-white font-bold mb-6 font-display">
                             {{ site_content('footer_heading_company', 'Perusahaan') }}</h4>
                         <ul class="space-y-4 text-sm">
-                            <li><a href="/ecosystem" class="hover:text-primary-400 transition-colors">The Ecosystem</a></li>
-                            <li><a href="/portfolio" class="hover:text-primary-400 transition-colors">Our Portfolio</a></li>
-                            <li><a href="/contact" class="hover:text-primary-400 transition-colors">Contact Support</a></li>
-                            <li><a href="#" class="hover:text-primary-400 transition-colors">Privacy Policy</a></li>
+                            <li><a href="/ecosystem/hub" class="hover:text-primary-400 transition-colors">Ekosistem</a></li>
+                            <li><a href="/portfolio" class="hover:text-primary-400 transition-colors">Portfolio</a></li>
+                            <li><a href="/contact" class="hover:text-primary-400 transition-colors">Kontak</a></li>
+                            <li><a href="#" class="hover:text-primary-400 transition-colors">Kebijakan Privasi</a></li>
                         </ul>
                     </div>
 
@@ -478,7 +478,7 @@
                             </li>
                             <li class="flex items-start gap-3">
                                 <i data-lucide="map-pin" class="w-5 h-5 text-primary-500 flex-shrink-0"></i>
-                                <span>Jakarta, Indonesia</span>
+                                <span>Samarinda, Indonesia</span>
                             </li>
                         </ul>
                     </div>
