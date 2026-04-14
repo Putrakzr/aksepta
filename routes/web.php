@@ -67,6 +67,7 @@ Route::middleware(['auth', 'superadmin'])->prefix('admin')->name('admin.')->grou
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
     Route::get('/settings', [App\Http\Controllers\Admin\AdminController::class, 'settingsIndex'])->name('settings.index');
     Route::post('/settings', [App\Http\Controllers\Admin\AdminController::class, 'settingsUpdate'])->name('settings.update');
+    Route::post('/settings/logo', [App\Http\Controllers\Admin\AdminController::class, 'logoUpdate'])->name('settings.logo');
     Route::patch('/content/{content}', [App\Http\Controllers\Admin\AdminController::class, 'update'])->name('content.update');
     
     // Portfolio CRUDs

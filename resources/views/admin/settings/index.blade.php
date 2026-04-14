@@ -58,6 +58,24 @@
                 
                 <div class="my-4 border-t border-slate-100"></div>
                 
+                <button @click="activeGroup = 'branding'" 
+                    :class="activeGroup === 'branding' ? 'bg-primary-50 text-primary-600 border-primary-200' : 'text-slate-500 hover:bg-slate-50 border-transparent'"
+                    class="w-full flex items-center justify-between px-4 py-3 text-sm font-bold rounded-xl border transition-all text-left">
+                    Branding & Logo
+                    <i data-lucide="palette" class="w-4 h-4" :class="activeGroup === 'branding' ? 'opacity-100' : 'opacity-30'"></i>
+                </button>
+
+                <div class="my-4 border-t border-slate-100"></div>
+                
+                <button @click="activeGroup = 'branding'" 
+                    :class="activeGroup === 'branding' ? 'bg-primary-50 text-primary-600 border-primary-200' : 'text-slate-500 hover:bg-slate-50 border-transparent'"
+                    class="w-full flex items-center justify-between px-4 py-3 text-sm font-bold rounded-xl border transition-all text-left">
+                    Branding & Logo
+                    <i data-lucide="palette" class="w-4 h-4" :class="activeGroup === 'branding' ? 'opacity-100' : 'opacity-30'"></i>
+                </button>
+
+                <div class="my-4 border-t border-slate-100"></div>
+                
                 @foreach($groups as $group)
                 <button @click="activeGroup = @js($group)" 
                     :class="activeGroup === @js($group) ? 'bg-primary-50 text-primary-600 border-primary-200' : 'text-slate-500 hover:bg-slate-50 border-transparent'"
@@ -88,6 +106,52 @@
                 @endphp
 
                 <div class="space-y-10 pb-20">
+                    <!-- Branding & Logo Section -->
+                    <div x-show="activeGroup === 'branding'" class="space-y-8">
+                        <div class="flex items-center gap-4">
+                            <h3 class="text-sm font-black text-slate-900 uppercase tracking-[0.2em]">Branding & Logo</h3>
+                            <div class="h-px flex-1 bg-slate-200"></div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-[32px] p-8 shadow-sm">
+                            <div class="flex flex-col lg:flex-row gap-12">
+                                <!-- Current Logo Preview -->
+                                <div class="lg:w-1/3 space-y-4">
+                                    <label class="text-sm font-bold text-slate-700">Logo Saat Ini</label>
+                                    <div class="aspect-square bg-slate-50 rounded-[24px] border-2 border-dashed border-slate-200 flex items-center justify-center p-8 relative group overflow-hidden">
+                                        <img src="{{ get_site_logo() }}" alt="Current Logo" id="logo-preview" class="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-110">
+                                        <div class="absolute inset-0 bg-primary-600/0 group-hover:bg-primary-600/10 transition-colors pointer-events-none"></div>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 text-center">Tampilan di seluruh site (Navbar & Footer)</p>
+                                </div>
+
+                                <!-- Upload New Logo -->
+                                <div class="flex-1 space-y-6">
+                                    <form action="{{ route('admin.settings.logo') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                                        @csrf
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-bold text-slate-700">Unggah Logo Baru</label>
+                                            <div class="relative">
+                                                <input type="file" name="logo" id="logo-input" accept="image/*" required
+                                                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                                    onchange="document.getElementById('file-chosen').textContent = this.files[0].name; previewImage(this)">
+                                                <div class="w-full bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl px-6 py-10 flex flex-col items-center gap-3 transition-all hover:border-primary-400 hover:bg-primary-50/50">
+                                                    <i data-lucide="upload-cloud" class="w-10 h-10 text-slate-300"></i>
+                                                    <span id="file-chosen" class="text-sm text-slate-500 font-medium text-center">Pilih file atau tarik ke sini<br><span class="text-[10px] font-normal">(PNG, JPG, SVG - Maks. 2MB)</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="w-full py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-primary-600 transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-2">
+                                            <i data-lucide="save" class="w-5 h-5"></i>
+                                            Simpan Logo Baru
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     @foreach($groupedContents as $group => $items)
                     <!-- Group Section -->
                     <div x-show="activeGroup === 'all' || activeGroup === @js($group)" class="space-y-6">
@@ -151,10 +215,19 @@
     </div>
 </div>
 
-<script>
     document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     });
+
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('logo-preview').src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 <style>
     .no-scrollbar::-webkit-scrollbar {
