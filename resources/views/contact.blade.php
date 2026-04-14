@@ -14,7 +14,7 @@
             <div
                 class="inline-flex items-center gap-3 px-4 py-2 bg-primary-500/10 rounded-full border border-primary-500/20 mb-4">
                 <i data-lucide="message-square" class="w-4 h-4 text-primary-400"></i>
-                <span class="text-xs font-bold text-primary-400 uppercase tracking-widest">Hubungin Kami</span>
+                <span class="text-xs font-bold text-primary-400 uppercase tracking-widest">Hubungi Kami</span>
             </div>
             <h1 class="text-5xl md:text-7xl font-display font-extrabold text-white leading-tight">
                 {!! site_content('contact_hero_title', "Let's Build Your<br><span class=\"text-primary-400\">Digital Future</span>") !!}
@@ -79,7 +79,7 @@
                             <div class="space-y-2">
                                 <h4 class="text-2xl font-bold">Kantor Kami</h4>
                                 <p class="text-slate-400 leading-relaxed">
-                                    {!! site_content('contact_address', 'Financial Hub Sudirman, 24th Floor<br>Special Capital Region of Jakarta 12190') !!}
+                                    {!! site_content('contact_address', 'Jl. Aminah Syukur, Samarinda<br>Kalimantan Timur') !!}
                                 </p>
                             </div>
                             <div class="flex gap-4">
