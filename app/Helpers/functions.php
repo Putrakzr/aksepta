@@ -28,7 +28,13 @@ if (!function_exists('get_site_logo')) {
      */
     function get_site_logo(): string
     {
-        $logo = site_content('site_logo', 'logo-aksepta.png');
+        // New: Priority from LogoApp table
+        try {
+            $logoRecord = \App\Models\LogoApp::latest('id')->first();
+            $logo = $logoRecord ? $logoRecord->file_name : site_content('site_logo', 'logo-aksepta.png');
+        } catch (\Exception $e) {
+            $logo = site_content('site_logo', 'logo-aksepta.png');
+        }
 
         // Clean up common path issues
         $logo = str_replace(['storage/', '/storage/'], '', $logo);

@@ -122,15 +122,25 @@ Route::get('/fix-all', function () {
             ['value' => $address]
         );
         
-        // Fix Logo
+        // Fix Logo (Old Table)
         \App\Models\SiteContent::updateOrCreate(
             ['key' => 'site_logo'],
             ['value' => 'logo-aksepta.png']
         );
-        
+
+        // Fix Logo (New Specialized Table)
+        \App\Models\LogoApp::updateOrCreate(
+            ['file_name' => 'logo-aksepta.png'],
+            [
+                'file_path' => 'storage/app/public/logo-aksepta.png',
+                'mime_type' => 'image/png'
+            ]
+        );
+
         \Illuminate\Support\Facades\Artisan::call('cache:clear');
-        
-        return "System Fixed!<br>Address updated.<br>Logo reset.<br>Cache cleared.<br><a href='/'>Back to Home</a>";
+
+        return "System Fixed!<br>Address updated.<br>Logo tables synchronized (SiteContent & LogoApp).<br>Cache cleared.<br><a href='/'>Back to Home</a>";
+
     } catch (\Exception $e) {
         return "Error fixing system: " . $e->getMessage();
     }
