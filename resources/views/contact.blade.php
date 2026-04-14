@@ -155,8 +155,8 @@
             <div class="w-full h-[500px] rounded-[48px] overflow-hidden shadow-2xl border-8 border-white group relative">
                 <!-- Map Placeholder / Embed -->
                 <iframe class="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
-                    src="https://maps.app.goo.gl/qeSWGkaDxzbysKn96" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6678163002634!2d117.15406637582343!3d-0.49766433527443826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df6815780d97e55%3A0x3792d3720ef3a184!2sAksepta!5e0!3m2!1sid!2sid!4v1776129160416!5m2!1sid!2sid"
+                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
 
                 <!-- Floating Map Overlay -->
