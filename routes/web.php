@@ -112,3 +112,22 @@ Route::get('/api/media/{filename}', function ($filename) {
     
     return $response;
 })->where('filename', '.*');
+
+Route::get('/fix-address', function () {
+    try {
+        $key = 'contact_address';
+        $oldValue = \App\Models\SiteContent::where('key', $key)->first()?->value ?? 'NOT FOUND';
+        
+        $newValue = 'Jl. Aminah Syukur No. 2B<br>Samarinda, Kalimantan Timur';
+        \App\Models\SiteContent::updateOrCreate(
+            ['key' => $key],
+            ['value' => $newValue]
+        );
+        
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        
+        return "Old Address: " . $oldValue . "<br>New Address: " . $newValue . "<br>Status: Success. Cache cleared.";
+    } catch (\Exception $e) {
+        return "Error updating address: " . $e->getMessage();
+    }
+});

@@ -425,15 +425,15 @@
                         <div class="flex gap-4">
                             <a href="https://www.instagram.com/aksepta?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"
                                 class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                                <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
                             </a>
                             <a href="https://www.tiktok.com/@aksepta?_r=1&_t=ZS-95WFd2C0Gjk" target="_blank"
                                 class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="tiktok" class="w-5 h-5"></i>
+                                <i data-lucide="music" class="w-5 h-5 text-white"></i>
                             </a>
                             <a href="https://youtube.com/@aksepta?si=j6lUtSzUrwDlMmZM" target="_blank"
                                 class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="youtube" class="w-5 h-5"></i>
+                                <i data-lucide="youtube" class="w-5 h-5 text-white"></i>
                             </a>
                         </div>
                     </div>
