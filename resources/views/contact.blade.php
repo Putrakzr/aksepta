@@ -79,7 +79,7 @@
                             <div class="space-y-2">
                                 <h4 class="text-2xl font-bold">Kantor Kami</h4>
                                 <p class="text-slate-400 leading-relaxed">
-                                    {!! site_content('contact_address', 'Financial Hub Sudirman, 24th Floor<br>Special Capital Region of Jakarta 12190') !!}
+                                    {!! site_content('contact_address', 'Jl. Aminah Syukur No. 2B<br>Samarinda, Kalimantan Timur') !!}
                                 </p>
                             </div>
                             <div class="flex gap-4">

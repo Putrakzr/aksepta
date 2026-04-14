@@ -423,17 +423,17 @@
                             {{ site_content('footer_about', 'Bridging the gap between business potential and digital reality. We provide expert research and innovative digital solutions.') }}
                         </p>
                         <div class="flex gap-4">
-                            <a href="#"
-                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="linkedin" class="w-5 h-5"></i>
-                            </a>
-                            <a href="#"
+                            <a href="https://www.instagram.com/aksepta?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"
                                 class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
                                 <i data-lucide="instagram" class="w-5 h-5"></i>
                             </a>
-                            <a href="#"
+                            <a href="https://www.tiktok.com/@aksepta?_r=1&_t=ZS-95WFd2C0Gjk" target="_blank"
                                 class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                                <i data-lucide="tiktok" class="w-5 h-5"></i>
+                            </a>
+                            <a href="https://youtube.com/@aksepta?si=j6lUtSzUrwDlMmZM" target="_blank"
+                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
+                                <i data-lucide="youtube" class="w-5 h-5"></i>
                             </a>
                         </div>
                     </div>
@@ -478,7 +478,7 @@
                             </li>
                             <li class="flex items-start gap-3">
                                 <i data-lucide="map-pin" class="w-5 h-5 text-primary-500 flex-shrink-0"></i>
-                                <span>Samarinda, Indonesia</span>
+                                <span>Jl. Aminah Syukur No. 2B, Samarinda</span>
                             </li>
                         </ul>
                     </div>
