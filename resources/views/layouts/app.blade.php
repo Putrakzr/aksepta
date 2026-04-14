@@ -97,7 +97,7 @@
         class="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-white focus:text-primary-600">Skip
         to content</a>
 
-    @if(!request()->is('admin*'))
+    @if(!request()->is('admin*', 'login'))
         <!-- Navigation -->
         <nav class="sticky top-0 z-[60] w-full transition-all duration-300 glass" x-data="{ 
                 mobileMenuOpen: false, 
@@ -409,7 +409,7 @@
         @yield('content')
     </main>
 
-    @if(!request()->is('admin*'))
+    @if(!request()->is('admin*', 'login'))
         <!-- Footer -->
         <footer class="bg-slate-900 text-slate-300 pt-20 pb-10 mt-20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
