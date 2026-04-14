@@ -116,6 +116,12 @@ Route::get('/api/media/{filename}', function ($filename) {
 
 Route::get('/fix-all', function () {
     try {
+        // Clear all possible caches first
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        \Illuminate\Support\Facades\Artisan::call('route:clear');
+
         // Fix Address
         $address = 'Jl. Aminah Syukur No. 2B<br>Samarinda, Kalimantan Timur';
         \App\Models\SiteContent::updateOrCreate(
@@ -123,9 +129,10 @@ Route::get('/fix-all', function () {
             ['value' => $address]
         );
 
-        // Debug LogoApp
-        $latestLogo = \App\Models\LogoApp::latest('id')->first();
+        // Debug LogoApp - Fetch all entries
+        $allLogos = \App\Models\LogoApp::all();
         $generatedUrl = get_site_logo();
+        $envAppUrl = config('app.url');
         
         // Fix Logo (Old Table)
         \App\Models\SiteContent::updateOrCreate(
@@ -133,24 +140,23 @@ Route::get('/fix-all', function () {
             ['value' => 'logo-aksepta.png']
         );
 
-        // Fix Logo (New Specialized Table)
-        if (!$latestLogo) {
+        // Fix Logo (New Specialized Table) - ONLY if table is empty
+        if ($allLogos->isEmpty()) {
             \App\Models\LogoApp::create([
                 'file_name' => 'logo-aksepta.png',
                 'file_path' => 'storage/app/public/logo-aksepta.png',
                 'mime_type' => 'image/png'
             ]);
-            $latestLogo = "Created default entry.";
+            $allLogos = \App\Models\LogoApp::all();
         }
 
-        \Illuminate\Support\Facades\Artisan::call('cache:clear');
-
         return "
-            <h1>System Status</h1>
+            <h1>System Status (Deep Debug)</h1>
+            <p><b>APP_URL in Config:</b> $envAppUrl</p>
             <p><b>Address:</b> Updated to Samarinda.</p>
-            <p><b>Latest Logo in DB:</b> " . json_encode($latestLogo) . "</p>
+            <p><b>LogoApp Table Entries:</b> " . $allLogos->toJson(JSON_PRETTY_PRINT) . "</p>
             <p><b>Generated Logo URL:</b> <a href='$generatedUrl'>$generatedUrl</a></p>
-            <p><b>Cache:</b> Cleared.</p>
+            <p><b>Action:</b> Config, Cache, View, and Route caches have been CLEARED.</p>
             <hr>
             <a href='/'>Back to Home</a> | <a href='/admin/settings'>Admin Panel</a>
         ";
