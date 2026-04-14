@@ -79,7 +79,7 @@
                             <div class="space-y-2">
                                 <h4 class="text-2xl font-bold">Kantor Kami</h4>
                                 <p class="text-slate-400 leading-relaxed">
-                                    {!! site_content('contact_address', 'Jl. Aminah Syukur, Samarinda<br>Kalimantan Timur') !!}
+                                    {!! site_content('contact_address', 'Financial Hub Sudirman, 24th Floor<br>Special Capital Region of Jakarta 12190') !!}
                                 </p>
                             </div>
                             <div class="flex gap-4">
@@ -155,8 +155,8 @@
             <div class="w-full h-[500px] rounded-[48px] overflow-hidden shadow-2xl border-8 border-white group relative">
                 <!-- Map Placeholder / Embed -->
                 <iframe class="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
-                    src="https://www.google.com/maps/place/Aksepta/@-0.4976643,117.1540664,17z/data=!3m1!4b1!4m6!3m5!1s0x2df6815780d97e55:0x3792d3720ef3a184!8m2!3d-0.4976697!4d117.1566413!16s%2Fg%2F11k0sj44jj?entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D"
-                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    src="https://maps.app.goo.gl/qeSWGkaDxzbysKn96" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
 
                 <!-- Floating Map Overlay -->
