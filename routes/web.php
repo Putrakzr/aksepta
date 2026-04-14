@@ -150,31 +150,37 @@ Route::get('/fix-all', function () {
             $allLogos = \App\Models\LogoApp::all();
         }
 
+        // Check Writability
+        $writability = [
+            'storage' => is_writable(storage_path('app/public')),
+            'public' => is_writable(public_path()),
+            'root' => is_writable(base_path()),
+        ];
+
         // Apply Triple-Write Sync for existing logos
         $checkResults = [];
         foreach ($allLogos as $lRecord) {
             $fName = $lRecord->file_name;
             $source = storage_path('app/public/'.$fName);
             $checkResults[$fName] = [
-                'in_storage' => file_exists($source),
-                'in_public' => file_exists(public_path($fName)),
-                'in_root' => file_exists(base_path($fName)),
+                'exists_in_storage' => file_exists($source),
+                'exists_in_public' => file_exists(public_path($fName)),
+                'exists_in_root' => file_exists(base_path($fName)),
             ];
 
-            if ($checkResults[$fName]['in_storage']) {
+            if ($checkResults[$fName]['exists_in_storage']) {
                 @copy($source, public_path($fName));
                 @copy($source, base_path($fName));
             }
         }
 
         return "
-            <h1>System Status (Triple-Write Debug)</h1>
+            <h1>System Status (Writability & Triple-Write)</h1>
             <p><b>APP_URL in Config:</b> $envAppUrl</p>
-            <p><b>Address:</b> Updated to Samarinda.</p>
+            <p><b>Directory Writability (Must be True):</b> " . json_encode($writability, JSON_PRETTY_PRINT) . "</p>
             <p><b>LogoApp Table Entries:</b> " . $allLogos->toJson(JSON_PRETTY_PRINT) . "</p>
             <p><b>File Existence Check:</b> " . json_encode($checkResults, JSON_PRETTY_PRINT) . "</p>
             <p><b>Generated Logo URL:</b> <a href='$generatedUrl'>$generatedUrl</a></p>
-            <p><b>Action:</b> Config, Cache, View, and Route caches have been CLEARED.</p>
             <hr>
             <a href='/'>Back to Home</a> | <a href='/admin/settings'>Admin Panel</a>
         ";
