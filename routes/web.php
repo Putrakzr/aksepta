@@ -151,22 +151,29 @@ Route::get('/fix-all', function () {
         }
 
         // Apply Triple-Write Sync for existing logos
+        $checkResults = [];
         foreach ($allLogos as $lRecord) {
             $fName = $lRecord->file_name;
             $source = storage_path('app/public/'.$fName);
-            if (file_exists($source)) {
+            $checkResults[$fName] = [
+                'in_storage' => file_exists($source),
+                'in_public' => file_exists(public_path($fName)),
+                'in_root' => file_exists(base_path($fName)),
+            ];
+
+            if ($checkResults[$fName]['in_storage']) {
                 @copy($source, public_path($fName));
                 @copy($source, base_path($fName));
             }
         }
 
         return "
-            <h1>System Status (Triple-Write Enabled)</h1>
+            <h1>System Status (Triple-Write Debug)</h1>
             <p><b>APP_URL in Config:</b> $envAppUrl</p>
             <p><b>Address:</b> Updated to Samarinda.</p>
             <p><b>LogoApp Table Entries:</b> " . $allLogos->toJson(JSON_PRETTY_PRINT) . "</p>
+            <p><b>File Existence Check:</b> " . json_encode($checkResults, JSON_PRETTY_PRINT) . "</p>
             <p><b>Generated Logo URL:</b> <a href='$generatedUrl'>$generatedUrl</a></p>
-            <p><b>Triple-Write Sync:</b> Files copied to Root and Public folders for Hostinger compatibility.</p>
             <p><b>Action:</b> Config, Cache, View, and Route caches have been CLEARED.</p>
             <hr>
             <a href='/'>Back to Home</a> | <a href='/admin/settings'>Admin Panel</a>
