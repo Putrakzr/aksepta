@@ -150,34 +150,41 @@ Route::get('/fix-all', function () {
             $allLogos = \App\Models\LogoApp::all();
         }
 
+        // Check Paths
+        $paths = [
+            'base_path' => base_path(),
+            'public_path' => public_path(),
+            'storage_path' => storage_path('app/public'),
+        ];
+
         // Check Writability
         $writability = [
-            'storage' => is_writable(storage_path('app/public')),
-            'public' => is_writable(public_path()),
-            'root' => is_writable(base_path()),
+            'storage' => is_writable($paths['storage_path']),
+            'public' => is_writable($paths['public_path']),
+            'root' => is_writable($paths['base_path']),
         ];
 
         // Apply Triple-Write Sync for existing logos
         $checkResults = [];
         foreach ($allLogos as $lRecord) {
             $fName = $lRecord->file_name;
-            $source = storage_path('app/public/'.$fName);
+            $source = $paths['storage_path'] . '/' . $fName;
             $checkResults[$fName] = [
                 'exists_in_storage' => file_exists($source),
-                'exists_in_public' => file_exists(public_path($fName)),
-                'exists_in_root' => file_exists(base_path($fName)),
+                'exists_in_public' => file_exists($paths['public_path'] . '/' . $fName),
+                'exists_in_root' => file_exists($paths['base_path'] . '/' . $fName),
             ];
 
             if ($checkResults[$fName]['exists_in_storage']) {
-                @copy($source, public_path($fName));
-                @copy($source, base_path($fName));
+                @copy($source, $paths['public_path'] . '/' . $fName);
+                @copy($source, $paths['base_path'] . '/' . $fName);
             }
         }
 
         return "
-            <h1>System Status (Writability & Triple-Write)</h1>
-            <p><b>APP_URL in Config:</b> $envAppUrl</p>
-            <p><b>Directory Writability (Must be True):</b> " . json_encode($writability, JSON_PRETTY_PRINT) . "</p>
+            <h1>System Status (Deep Path Debug)</h1>
+            <p><b>Paths on Server:</b> " . json_encode($paths, JSON_PRETTY_PRINT) . "</p>
+            <p><b>Directory Writability:</b> " . json_encode($writability, JSON_PRETTY_PRINT) . "</p>
             <p><b>LogoApp Table Entries:</b> " . $allLogos->toJson(JSON_PRETTY_PRINT) . "</p>
             <p><b>File Existence Check:</b> " . json_encode($checkResults, JSON_PRETTY_PRINT) . "</p>
             <p><b>Generated Logo URL:</b> <a href='$generatedUrl'>$generatedUrl</a></p>
