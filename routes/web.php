@@ -122,6 +122,10 @@ Route::get('/fix-all', function () {
             ['key' => 'contact_address'],
             ['value' => $address]
         );
+
+        // Debug LogoApp
+        $latestLogo = \App\Models\LogoApp::latest('id')->first();
+        $generatedUrl = get_site_logo();
         
         // Fix Logo (Old Table)
         \App\Models\SiteContent::updateOrCreate(
@@ -130,17 +134,26 @@ Route::get('/fix-all', function () {
         );
 
         // Fix Logo (New Specialized Table)
-        \App\Models\LogoApp::updateOrCreate(
-            ['file_name' => 'logo-aksepta.png'],
-            [
+        if (!$latestLogo) {
+            \App\Models\LogoApp::create([
+                'file_name' => 'logo-aksepta.png',
                 'file_path' => 'storage/app/public/logo-aksepta.png',
                 'mime_type' => 'image/png'
-            ]
-        );
+            ]);
+            $latestLogo = "Created default entry.";
+        }
 
         \Illuminate\Support\Facades\Artisan::call('cache:clear');
 
-        return "System Fixed!<br>Address updated.<br>Logo tables synchronized (SiteContent & LogoApp).<br>Cache cleared.<br><a href='/'>Back to Home</a>";
+        return "
+            <h1>System Status</h1>
+            <p><b>Address:</b> Updated to Samarinda.</p>
+            <p><b>Latest Logo in DB:</b> " . json_encode($latestLogo) . "</p>
+            <p><b>Generated Logo URL:</b> <a href='$generatedUrl'>$generatedUrl</a></p>
+            <p><b>Cache:</b> Cleared.</p>
+            <hr>
+            <a href='/'>Back to Home</a> | <a href='/admin/settings'>Admin Panel</a>
+        ";
 
     } catch (\Exception $e) {
         return "Error fixing system: " . $e->getMessage();
