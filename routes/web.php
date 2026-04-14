@@ -150,12 +150,23 @@ Route::get('/fix-all', function () {
             $allLogos = \App\Models\LogoApp::all();
         }
 
+        // Apply Triple-Write Sync for existing logos
+        foreach ($allLogos as $lRecord) {
+            $fName = $lRecord->file_name;
+            $source = storage_path('app/public/'.$fName);
+            if (file_exists($source)) {
+                @copy($source, public_path($fName));
+                @copy($source, base_path($fName));
+            }
+        }
+
         return "
-            <h1>System Status (Deep Debug)</h1>
+            <h1>System Status (Triple-Write Enabled)</h1>
             <p><b>APP_URL in Config:</b> $envAppUrl</p>
             <p><b>Address:</b> Updated to Samarinda.</p>
             <p><b>LogoApp Table Entries:</b> " . $allLogos->toJson(JSON_PRETTY_PRINT) . "</p>
             <p><b>Generated Logo URL:</b> <a href='$generatedUrl'>$generatedUrl</a></p>
+            <p><b>Triple-Write Sync:</b> Files copied to Root and Public folders for Hostinger compatibility.</p>
             <p><b>Action:</b> Config, Cache, View, and Route caches have been CLEARED.</p>
             <hr>
             <a href='/'>Back to Home</a> | <a href='/admin/settings'>Admin Panel</a>

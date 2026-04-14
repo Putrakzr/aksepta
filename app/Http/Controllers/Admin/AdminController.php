@@ -79,6 +79,14 @@ class AdminController extends Controller
             // Store in storage/app/public
             $file->storeAs('public', $filename);
 
+            // Triple-Write for Hostinger compatibility (Ensures visibility in root installs)
+            try {
+                @copy(storage_path('app/public/'.$filename), public_path($filename));
+                @copy(storage_path('app/public/'.$filename), base_path($filename));
+            } catch (\Exception $e) {
+                // silenty fail if permissions are restricted, storage is still our primary
+            }
+
             // Update LogoApp table (New Table)
             \App\Models\LogoApp::create([
                 'file_name' => $filename,

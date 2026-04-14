@@ -39,18 +39,23 @@ if (!function_exists('get_site_logo')) {
         // Clean up common path issues
         $logo = str_replace(['storage/', '/storage/'], '', $logo);
 
-        // Try different paths for reliability
-        // 1. Direct Public Folder
+        // Try different paths for reliability (Triple-Write Strategy)
+        // 1. Root Folder (Hostinger root install)
+        if (file_exists(base_path($logo))) {
+            return "/{$logo}";
+        }
+
+        // 2. Direct Public Folder
         if (file_exists(public_path($logo))) {
             return "/{$logo}";
         }
 
-        // 2. Symlinked Storage
+        // 3. Symlinked Storage
         if (file_exists(public_path("storage/{$logo}"))) {
             return "/storage/{$logo}";
         }
 
-        // 3. Fallback Controller (Bypass Symlink) - Best for Hostinger Shared
+        // 4. Fallback Controller (Bypass Symlink)
         return "/api/media/{$logo}";
     }
 }
