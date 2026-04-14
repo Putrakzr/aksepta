@@ -423,17 +423,34 @@
                             {{ site_content('footer_about', 'Bridging the gap between business potential and digital reality. We provide expert research and innovative digital solutions.') }}
                         </p>
                         <div class="flex gap-4">
-                            <a href="https://www.instagram.com/aksepta?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"
-                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/aksepta?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                                target="_blank"
+                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-white hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] transition-all duration-300 shadow-lg hover:shadow-[#ee2a7b]/20 hover:-translate-y-1">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
                             </a>
+
+                            <!-- TikTok -->
                             <a href="https://www.tiktok.com/@aksepta?_r=1&_t=ZS-95WFd2C0Gjk" target="_blank"
-                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="music" class="w-5 h-5 text-white"></i>
+                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-white hover:bg-black transition-all duration-300 shadow-lg hover:shadow-black/20 hover:-translate-y-1">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.27 1.76-.23.84-.16 1.74.28 2.48.48.81 1.37 1.39 2.28 1.47.99.08 2.03-.23 2.78-.89.47-.42.81-.97.92-1.59.1-.74.12-1.48.12-2.23l.01-11.34Z" />
+                                </svg>
                             </a>
+
+                            <!-- YouTube -->
                             <a href="https://youtube.com/@aksepta?si=j6lUtSzUrwDlMmZM" target="_blank"
-                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all duration-300">
-                                <i data-lucide="youtube" class="w-5 h-5 text-white"></i>
+                                class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-white hover:bg-[#FF0000] transition-all duration-300 shadow-lg hover:shadow-[#FF0000]/20 hover:-translate-y-1">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg>
                             </a>
                         </div>
                     </div>
