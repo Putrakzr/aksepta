@@ -19,3 +19,32 @@ if (!function_exists('site_content')) {
         });
     }
 }
+
+if (!function_exists('get_site_logo')) {
+    /**
+     * Get site logo URL with fallback for Hostinger Shared hosting.
+     * 
+     * @return string
+     */
+    function get_site_logo(): string
+    {
+        $logo = site_content('site_logo', 'logo-aksepta.png');
+
+        // Clean up common path issues
+        $logo = str_replace(['storage/', '/storage/'], '', $logo);
+
+        // Try different paths for reliability
+        // 1. Direct Public Folder
+        if (file_exists(public_path($logo))) {
+            return asset($logo);
+        }
+
+        // 2. Symlinked Storage
+        if (file_exists(public_path("storage/{$logo}"))) {
+            return asset("storage/{$logo}");
+        }
+
+        // 3. Fallback Controller (Bypass Symlink) - Best for Hostinger Shared
+        return url("/api/media/{$logo}");
+    }
+}

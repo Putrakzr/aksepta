@@ -113,21 +113,25 @@ Route::get('/api/media/{filename}', function ($filename) {
     return $response;
 })->where('filename', '.*');
 
-Route::get('/fix-address', function () {
+Route::get('/fix-all', function () {
     try {
-        $key = 'contact_address';
-        $oldValue = \App\Models\SiteContent::where('key', $key)->first()?->value ?? 'NOT FOUND';
-        
-        $newValue = 'Jl. Aminah Syukur No. 2B<br>Samarinda, Kalimantan Timur';
+        // Fix Address
+        $address = 'Jl. Aminah Syukur No. 2B<br>Samarinda, Kalimantan Timur';
         \App\Models\SiteContent::updateOrCreate(
-            ['key' => $key],
-            ['value' => $newValue]
+            ['key' => 'contact_address'],
+            ['value' => $address]
+        );
+        
+        // Fix Logo
+        \App\Models\SiteContent::updateOrCreate(
+            ['key' => 'site_logo'],
+            ['value' => 'logo-aksepta.png']
         );
         
         \Illuminate\Support\Facades\Artisan::call('cache:clear');
         
-        return "Old Address: " . $oldValue . "<br>New Address: " . $newValue . "<br>Status: Success. Cache cleared.";
+        return "System Fixed!<br>Address updated.<br>Logo reset.<br>Cache cleared.<br><a href='/'>Back to Home</a>";
     } catch (\Exception $e) {
-        return "Error updating address: " . $e->getMessage();
+        return "Error fixing system: " . $e->getMessage();
     }
 });
