@@ -129,26 +129,22 @@ Route::get('/fix-all', function () {
             ['value' => $address]
         );
 
-        // Debug LogoApp - Fetch all entries
-        $allLogos = \App\Models\LogoApp::all();
-        $generatedUrl = get_site_logo();
-        $envAppUrl = config('app.url');
+        // Force specific logo requested by user
+        $targetLogo = 'Desain_tanpa_judul-removebg-preview (1).png';
         
-        // Fix Logo (Old Table)
-        \App\Models\SiteContent::updateOrCreate(
-            ['key' => 'site_logo'],
-            ['value' => 'logo-aksepta.png']
+        \App\Models\LogoApp::updateOrCreate(
+            ['file_name' => $targetLogo],
+            [
+                'file_path' => 'storage/app/public/' . $targetLogo,
+                'mime_type' => 'image/png'
+            ]
         );
 
-        // Fix Logo (New Specialized Table) - ONLY if table is empty
-        if ($allLogos->isEmpty()) {
-            \App\Models\LogoApp::create([
-                'file_name' => 'logo-aksepta.png',
-                'file_path' => 'storage/app/public/logo-aksepta.png',
-                'mime_type' => 'image/png'
-            ]);
-            $allLogos = \App\Models\LogoApp::all();
-        }
+        // Fix Logo (Old Table Fallback)
+        \App\Models\SiteContent::updateOrCreate(
+            ['key' => 'site_logo'],
+            ['value' => $targetLogo]
+        );
 
         // Check Paths
         $paths = [
@@ -157,14 +153,8 @@ Route::get('/fix-all', function () {
             'storage_path' => storage_path('app/public'),
         ];
 
-        // Check Writability
-        $writability = [
-            'storage' => is_writable($paths['storage_path']),
-            'public' => is_writable($paths['public_path']),
-            'root' => is_writable($paths['base_path']),
-        ];
-
         // Apply Triple-Write Sync for existing logos
+        $allLogos = \App\Models\LogoApp::all();
         $checkResults = [];
         foreach ($allLogos as $lRecord) {
             $fName = $lRecord->file_name;
@@ -181,13 +171,14 @@ Route::get('/fix-all', function () {
             }
         }
 
+        $generatedUrl = get_site_logo();
+
         return "
-            <h1>System Status (Deep Path Debug)</h1>
-            <p><b>Paths on Server:</b> " . json_encode($paths, JSON_PRETTY_PRINT) . "</p>
-            <p><b>Directory Writability:</b> " . json_encode($writability, JSON_PRETTY_PRINT) . "</p>
-            <p><b>LogoApp Table Entries:</b> " . $allLogos->toJson(JSON_PRETTY_PRINT) . "</p>
-            <p><b>File Existence Check:</b> " . json_encode($checkResults, JSON_PRETTY_PRINT) . "</p>
+            <h1>System Status (Manual Logo Override)</h1>
+            <p><b>Target Logo:</b> $targetLogo</p>
+            <p><b>File Existence (Root):</b> " . ($checkResults[$targetLogo]['exists_in_root'] ? 'YES' : 'NO') . "</p>
             <p><b>Generated Logo URL:</b> <a href='$generatedUrl'>$generatedUrl</a></p>
+            <p><b>Action:</b> Logo record forced to Desain_tanpa_judul... and Triple-Write sync performed.</p>
             <hr>
             <a href='/'>Back to Home</a> | <a href='/admin/settings'>Admin Panel</a>
         ";
