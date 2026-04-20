@@ -288,8 +288,9 @@
                         <!-- Headshot Placeholder: Suggest high quality creative headshot here -->
                         <div
                             class="h-full min-h-[400px] w-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center relative overflow-hidden group">
-                            <i data-lucide="user"
-                                class="w-32 h-32 text-slate-400 opacity-50 group-hover:scale-110 transition-transform duration-700"></i>
+                            <img src="{{ asset('storage/IMG_0042.JPG') }}"
+                                 alt="Dastyargo Hartono - Founder & Managing Director"
+                                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
                             <!-- Tag -->
                             <div class="absolute bottom-10 left-0 right-0 text-center">
                                 <div class="inline-block px-6 py-3 bg-white shadow-xl rounded-full">

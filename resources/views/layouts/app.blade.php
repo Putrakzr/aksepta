@@ -8,7 +8,7 @@
     <meta name="description"
         content="Aksepta Strategi Indonesia - Strategic partner for Research, Digital Transformation, and Investment.">
     <!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 
     <!-- Fonts: Outfit for headings, Inter for body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
