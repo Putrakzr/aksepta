@@ -288,7 +288,7 @@
                         <!-- Headshot Placeholder: Suggest high quality creative headshot here -->
                         <div
                             class="h-full min-h-[400px] w-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center relative overflow-hidden group">
-                            <img src="{{ asset('storage/IMG_0042.JPG') }}"
+                            <img src="{{ asset('storage/IMG_0042.JPG.jpeg') }}"
                                  alt="Dastyargo Hartono - Founder & Managing Director"
                                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
                             <!-- Tag -->
