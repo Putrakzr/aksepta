@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdminTeamController extends Controller
 {
@@ -43,8 +42,10 @@ class AdminTeamController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('team', 'public');
-            $data['photo'] = Storage::url($path);
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/team'), $filename);
+            $data['photo'] = '/storage/team/' . $filename;
         }
 
         TeamMember::create($data);
@@ -77,13 +78,17 @@ class AdminTeamController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            if ($team->photo) {
-                $oldPath = str_replace('/storage/', '', $team->photo);
-                Storage::disk('public')->delete($oldPath);
+            if ($team->photo && str_starts_with($team->photo, '/storage/')) {
+                $oldFile = public_path($team->photo);
+                if (file_exists($oldFile)) {
+                    unlink($oldFile);
+                }
             }
 
-            $path = $request->file('photo')->store('team', 'public');
-            $data['photo'] = Storage::url($path);
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/team'), $filename);
+            $data['photo'] = '/storage/team/' . $filename;
         } else {
             unset($data['photo']);
         }
@@ -98,9 +103,11 @@ class AdminTeamController extends Controller
      */
     public function destroy(TeamMember $team)
     {
-        if ($team->photo) {
-            $oldPath = str_replace('/storage/', '', $team->photo);
-            Storage::disk('public')->delete($oldPath);
+        if ($team->photo && str_starts_with($team->photo, '/storage/')) {
+            $oldFile = public_path($team->photo);
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
         }
 
         $team->delete();

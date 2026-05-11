@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdminProjectController extends Controller
 {
@@ -37,8 +36,10 @@ class AdminProjectController extends Controller
             'description' => 'required|string',
         ]);
 
-        $path = $request->file('image')->store('projects', 'public');
-        $data['image'] = Storage::url($path);
+        $file = $request->file('image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('storage/projects'), $filename);
+        $data['image'] = '/storage/projects/' . $filename;
 
         \App\Models\Project::create($data);
 
@@ -66,13 +67,17 @@ class AdminProjectController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($project->image) {
-                $oldPath = str_replace('/storage/', '', $project->image);
-                Storage::disk('public')->delete($oldPath);
+            if ($project->image && str_starts_with($project->image, '/storage/')) {
+                $oldFile = public_path($project->image);
+                if (file_exists($oldFile)) {
+                    unlink($oldFile);
+                }
             }
 
-            $path = $request->file('image')->store('projects', 'public');
-            $data['image'] = Storage::url($path);
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/projects'), $filename);
+            $data['image'] = '/storage/projects/' . $filename;
         } else {
             unset($data['image']);
         }
@@ -87,9 +92,11 @@ class AdminProjectController extends Controller
      */
     public function destroy(\App\Models\Project $project)
     {
-        if ($project->image) {
-            $oldPath = str_replace('/storage/', '', $project->image);
-            Storage::disk('public')->delete($oldPath);
+        if ($project->image && str_starts_with($project->image, '/storage/')) {
+            $oldFile = public_path($project->image);
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
         }
 
         $project->delete();
