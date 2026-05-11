@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdminGalleryController extends Controller
 {
@@ -34,10 +33,12 @@ class AdminGalleryController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
 
-        $path = $request->file('image')->store('galleries', 'public');
+        $file = $request->file('image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/galleries'), $filename);
 
         \App\Models\Gallery::create([
-            'image' => '/storage/' . $path,
+            'image' => '/uploads/galleries/' . $filename,
         ]);
 
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery image added successfully.');
@@ -61,15 +62,19 @@ class AdminGalleryController extends Controller
         ]);
 
         // Delete old image if it's a local file
-        if ($gallery->image && str_starts_with($gallery->image, '/storage/')) {
-            $oldPath = str_replace('/storage/', '', $gallery->image);
-            Storage::disk('public')->delete($oldPath);
+        if ($gallery->image && str_starts_with($gallery->image, '/uploads/')) {
+            $oldFile = public_path($gallery->image);
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
         }
 
-        $path = $request->file('image')->store('galleries', 'public');
+        $file = $request->file('image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/galleries'), $filename);
 
         $gallery->update([
-            'image' => '/storage/' . $path,
+            'image' => '/uploads/galleries/' . $filename,
         ]);
 
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery image updated successfully.');
@@ -81,9 +86,11 @@ class AdminGalleryController extends Controller
     public function destroy(\App\Models\Gallery $gallery)
     {
         // Delete image file
-        if ($gallery->image && str_starts_with($gallery->image, '/storage/')) {
-            $oldPath = str_replace('/storage/', '', $gallery->image);
-            Storage::disk('public')->delete($oldPath);
+        if ($gallery->image && str_starts_with($gallery->image, '/uploads/')) {
+            $oldFile = public_path($gallery->image);
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
         }
 
         $gallery->delete();
