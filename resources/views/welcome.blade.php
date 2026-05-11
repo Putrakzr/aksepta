@@ -149,7 +149,7 @@
                 @foreach($projects as $project)
                 <div class="group bg-white rounded-[40px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100">
                     <div class="relative aspect-[4/3] overflow-hidden">
-                        <img src="{{ $project->image }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <img src="{{ asset($project->image) }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
                         <div class="absolute top-6 left-6">
                             <span class="px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-[10px] font-bold text-white uppercase tracking-widest border border-white/20">{{ $project->category }}</span>
@@ -179,7 +179,7 @@
                    {{ $article->type === 'link' ? 'target="_blank"' : '' }}
                    class="group bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500">
                     <div class="aspect-video rounded-3xl overflow-hidden mb-8">
-                        <img src="{{ $article->image }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <img src="{{ asset($article->image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     </div>
                     <div class="space-y-4">
                         <div class="text-xs font-bold text-primary-600 uppercase tracking-widest">{{ $article->meta }}</div>
