@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminArticleController extends Controller
 {
@@ -32,11 +33,14 @@ class AdminArticleController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|in:manual,link',
-            'image' => 'required|url',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'meta' => 'required|string|max:255',
             'content' => 'required_if:type,manual|nullable|string',
             'external_url' => 'required_if:type,link|nullable|url',
         ]);
+
+        $path = $request->file('image')->store('articles', 'public');
+        $data['image'] = '/storage/' . $path;
 
         \App\Models\Article::create($data);
 
@@ -59,11 +63,24 @@ class AdminArticleController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|in:manual,link',
-            'image' => 'required|url',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'meta' => 'required|string|max:255',
             'content' => 'required_if:type,manual|nullable|string',
             'external_url' => 'required_if:type,link|nullable|url',
         ]);
+
+        if ($request->hasFile('image')) {
+            // Delete old image if it's a local file
+            if ($article->image && str_starts_with($article->image, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $article->image);
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $path = $request->file('image')->store('articles', 'public');
+            $data['image'] = '/storage/' . $path;
+        } else {
+            unset($data['image']);
+        }
 
         $article->update($data);
 
@@ -75,6 +92,12 @@ class AdminArticleController extends Controller
      */
     public function destroy(\App\Models\Article $article)
     {
+        // Delete image file
+        if ($article->image && str_starts_with($article->image, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $article->image);
+            Storage::disk('public')->delete($oldPath);
+        }
+
         $article->delete();
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted successfully.');
     }

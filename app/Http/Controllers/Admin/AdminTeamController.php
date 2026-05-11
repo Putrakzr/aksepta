@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminTeamController extends Controller
 {
@@ -36,10 +37,15 @@ class AdminTeamController extends Controller
             'type' => 'required|in:founder,leadership,support',
             'tags' => 'nullable|string',
             'bio' => 'nullable|string',
-            'photo' => 'nullable|url',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'icon' => 'nullable|string',
             'order' => 'required|integer',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('team', 'public');
+            $data['photo'] = '/storage/' . $path;
+        }
 
         TeamMember::create($data);
 
@@ -65,10 +71,23 @@ class AdminTeamController extends Controller
             'type' => 'required|in:founder,leadership,support',
             'tags' => 'nullable|string',
             'bio' => 'nullable|string',
-            'photo' => 'nullable|url',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'icon' => 'nullable|string',
             'order' => 'required|integer',
         ]);
+
+        if ($request->hasFile('photo')) {
+            // Delete old photo if it's a local file
+            if ($team->photo && str_starts_with($team->photo, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $team->photo);
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $path = $request->file('photo')->store('team', 'public');
+            $data['photo'] = '/storage/' . $path;
+        } else {
+            unset($data['photo']);
+        }
 
         $team->update($data);
 
@@ -80,6 +99,12 @@ class AdminTeamController extends Controller
      */
     public function destroy(TeamMember $team)
     {
+        // Delete photo file
+        if ($team->photo && str_starts_with($team->photo, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $team->photo);
+            Storage::disk('public')->delete($oldPath);
+        }
+
         $team->delete();
         return redirect()->route('admin.team.index')->with('success', 'Team member removed successfully.');
     }

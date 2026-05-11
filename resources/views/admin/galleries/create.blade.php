@@ -24,18 +24,31 @@
 
                 <form
                     action="{{ isset($gallery) ? route('admin.galleries.update', $gallery) : route('admin.galleries.store') }}"
-                    method="POST" class="p-12 space-y-8">
+                    method="POST" enctype="multipart/form-data" class="p-12 space-y-8">
                     @csrf
                     @isset($gallery) @method('PUT') @endisset
 
                     <div class="space-y-4">
-                        <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">URL
+                        <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Upload
                             Gambar</label>
                         <div class="relative">
-                            <input type="text" name="image" value="{{ old('image', $gallery->image ?? '') }}"
-                                class="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl px-6 py-8 text-slate-900 focus:ring-8 focus:ring-rose-500/5 focus:border-rose-500 transition-all font-mono text-sm"
-                                placeholder="https://images.unsplash.com/photo-...">
+                            <label for="image-upload"
+                                class="flex flex-col items-center justify-center w-full h-64 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:bg-slate-100 hover:border-rose-300 transition-all group"
+                                id="drop-zone">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-placeholder">
+                                    <div class="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <i data-lucide="upload-cloud" class="w-8 h-8 text-rose-500"></i>
+                                    </div>
+                                    <p class="mb-2 text-sm font-bold text-slate-500">Klik untuk pilih gambar <span class="text-rose-500">atau drag & drop</span></p>
+                                    <p class="text-xs text-slate-400">PNG, JPG, GIF, WEBP (Maks. 5MB)</p>
+                                </div>
+                                <img id="image-preview" class="hidden w-full h-full object-cover rounded-3xl" />
+                            </label>
+                            <input id="image-upload" type="file" name="image" accept="image/*" class="hidden" onchange="previewFile(this)" />
                         </div>
+                        @error('image')
+                            <p class="text-sm text-red-500 font-medium px-4">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     @if(isset($gallery))
@@ -56,4 +69,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function previewFile(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('image-preview');
+                    const placeholder = document.getElementById('upload-placeholder');
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Drag and drop
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('image-upload');
+
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.add('border-rose-400', 'bg-rose-50');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.remove('border-rose-400', 'bg-rose-50');
+            });
+        });
+
+        dropZone.addEventListener('drop', e => {
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                previewFile(fileInput);
+            }
+        });
+    </script>
 @endsection

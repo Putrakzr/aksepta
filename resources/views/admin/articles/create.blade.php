@@ -29,7 +29,7 @@
 
                 <form
                     action="{{ isset($article) ? route('admin.articles.update', $article) : route('admin.articles.store') }}"
-                    method="POST" class="p-12 space-y-8">
+                    method="POST" enctype="multipart/form-data" class="p-12 space-y-8">
                     @csrf
                     @isset($article) @method('PUT') @endisset
 
@@ -63,11 +63,26 @@
                                 placeholder="contoh: Whitepaper • 12 menit baca">
                         </div>
                         <div class="space-y-3">
-                            <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">URL Gambar
+                            <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Gambar
                                 Thumbnail</label>
-                            <input type="text" name="image" value="{{ old('image', $article->image ?? '') }}"
-                                class="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl px-6 py-4 text-slate-900 focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 transition-all font-mono text-sm"
-                                placeholder="https://images.unsplash.com/photo-...">
+                            <div class="relative">
+                                <label for="article-image-upload"
+                                    class="flex flex-col items-center justify-center w-full h-32 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:bg-slate-100 hover:border-emerald-300 transition-all group"
+                                    id="drop-zone">
+                                    <div class="flex flex-col items-center justify-center py-3" id="upload-placeholder">
+                                        <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                                            <i data-lucide="upload-cloud" class="w-5 h-5 text-emerald-500"></i>
+                                        </div>
+                                        <p class="text-xs font-bold text-slate-500">Klik atau drag <span class="text-emerald-500">gambar</span></p>
+                                        <p class="text-[10px] text-slate-400">Maks. 5MB</p>
+                                    </div>
+                                    <img id="image-preview" class="hidden w-full h-full object-cover rounded-3xl" />
+                                </label>
+                                <input id="article-image-upload" type="file" name="image" accept="image/*" class="hidden" onchange="previewFile(this)" />
+                            </div>
+                            @error('image')
+                                <p class="text-sm text-red-500 font-medium px-4">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
@@ -120,7 +135,46 @@
             }
 
             typeSelect.addEventListener('change', toggleFields);
-            toggleFields(); // Initial call
+            toggleFields();
+        });
+
+        function previewFile(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('image-preview');
+                    const placeholder = document.getElementById('upload-placeholder');
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('article-image-upload');
+
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.add('border-emerald-400', 'bg-emerald-50');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.remove('border-emerald-400', 'bg-emerald-50');
+            });
+        });
+
+        dropZone.addEventListener('drop', e => {
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                previewFile(fileInput);
+            }
         });
     </script>
 @endsection

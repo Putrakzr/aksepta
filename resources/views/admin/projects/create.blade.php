@@ -32,7 +32,7 @@
 
                 <form
                     action="{{ isset($project) ? route('admin.projects.update', $project) : route('admin.projects.store') }}"
-                    method="POST" class="p-12 space-y-10">
+                    method="POST" enctype="multipart/form-data" class="p-12 space-y-10">
                     @csrf
                     @isset($project) @method('PUT') @endisset
 
@@ -59,19 +59,28 @@
                             </select>
                         </div>
 
-                        <!-- Image URL -->
+                        <!-- Image Upload -->
                         <div class="space-y-3 md:col-span-2">
                             <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Aset Visual
-                                (URL Gambar)</label>
+                                (Upload Gambar)</label>
                             <div class="relative">
-                                <input type="text" name="image" value="{{ old('image', $project->image ?? '') }}"
-                                    class="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl px-6 py-8 text-slate-900 focus:ring-8 focus:ring-blue-500/5 focus:border-blue-500 transition-all font-medium font-mono text-sm"
-                                    placeholder="https://images.unsplash.com/photo-...">
-                                <div
-                                    class="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center">
-                                    <i data-lucide="image" class="w-5 h-5 text-slate-400"></i>
-                                </div>
+                                <label for="project-image-upload"
+                                    class="flex flex-col items-center justify-center w-full h-48 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:bg-slate-100 hover:border-blue-300 transition-all group"
+                                    id="drop-zone">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-placeholder">
+                                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                            <i data-lucide="upload-cloud" class="w-7 h-7 text-blue-500"></i>
+                                        </div>
+                                        <p class="mb-1 text-sm font-bold text-slate-500">Klik untuk pilih gambar <span class="text-blue-500">atau drag & drop</span></p>
+                                        <p class="text-xs text-slate-400">PNG, JPG, GIF, WEBP (Maks. 5MB)</p>
+                                    </div>
+                                    <img id="image-preview" class="hidden w-full h-full object-cover rounded-3xl" />
+                                </label>
+                                <input id="project-image-upload" type="file" name="image" accept="image/*" class="hidden" onchange="previewFile(this)" />
                             </div>
+                            @error('image')
+                                <p class="text-sm text-red-500 font-medium px-4">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Description -->
@@ -95,4 +104,45 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function previewFile(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('image-preview');
+                    const placeholder = document.getElementById('upload-placeholder');
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('project-image-upload');
+
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.add('border-blue-400', 'bg-blue-50');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.remove('border-blue-400', 'bg-blue-50');
+            });
+        });
+
+        dropZone.addEventListener('drop', e => {
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                previewFile(fileInput);
+            }
+        });
+    </script>
 @endsection

@@ -21,23 +21,36 @@
                     </div>
                 </div>
 
-                <form action="{{ route('admin.galleries.update', $gallery) }}" method="POST" class="p-12 space-y-8">
+                <form action="{{ route('admin.galleries.update', $gallery) }}" method="POST" enctype="multipart/form-data" class="p-12 space-y-8">
                     @csrf
                     @method('PUT')
 
-                    <div class="space-y-4">
-                        <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">URL
-                            Gambar</label>
-                        <div class="relative">
-                            <input type="text" name="image" value="{{ old('image', $gallery->image) }}"
-                                class="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl px-6 py-8 text-slate-900 focus:ring-8 focus:ring-rose-500/5 focus:border-rose-500 transition-all font-mono text-sm"
-                                placeholder="https://images.unsplash.com/photo-...">
-                        </div>
+                    <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Gambar Saat Ini</p>
+                        <img src="{{ $gallery->image }}" class="w-full h-48 object-cover rounded-2xl shadow-sm">
                     </div>
 
-                    <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Pratinjau Saat Ini</p>
-                        <img src="{{ $gallery->image }}" class="w-full h-48 object-cover rounded-2xl shadow-sm">
+                    <div class="space-y-4">
+                        <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Ganti
+                            Gambar</label>
+                        <div class="relative">
+                            <label for="image-upload"
+                                class="flex flex-col items-center justify-center w-full h-48 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:bg-slate-100 hover:border-rose-300 transition-all group"
+                                id="drop-zone">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-placeholder">
+                                    <div class="w-14 h-14 bg-rose-100 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                        <i data-lucide="upload-cloud" class="w-7 h-7 text-rose-500"></i>
+                                    </div>
+                                    <p class="mb-1 text-sm font-bold text-slate-500">Klik untuk pilih gambar baru <span class="text-rose-500">atau drag & drop</span></p>
+                                    <p class="text-xs text-slate-400">PNG, JPG, GIF, WEBP (Maks. 5MB)</p>
+                                </div>
+                                <img id="image-preview" class="hidden w-full h-full object-cover rounded-3xl" />
+                            </label>
+                            <input id="image-upload" type="file" name="image" accept="image/*" class="hidden" onchange="previewFile(this)" />
+                        </div>
+                        @error('image')
+                            <p class="text-sm text-red-500 font-medium px-4">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="pt-6 border-t border-slate-100 flex justify-end">
@@ -51,4 +64,45 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function previewFile(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('image-preview');
+                    const placeholder = document.getElementById('upload-placeholder');
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('image-upload');
+
+        ['dragenter', 'dragover'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.add('border-rose-400', 'bg-rose-50');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.remove('border-rose-400', 'bg-rose-50');
+            });
+        });
+
+        dropZone.addEventListener('drop', e => {
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                previewFile(fileInput);
+            }
+        });
+    </script>
 @endsection

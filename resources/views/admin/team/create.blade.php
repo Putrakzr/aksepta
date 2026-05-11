@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <form action="{{ isset($member) ? route('admin.team.update', $member) : route('admin.team.store') }}" method="POST" class="p-12 space-y-8">
+            <form action="{{ isset($member) ? route('admin.team.update', $member) : route('admin.team.store') }}" method="POST" enctype="multipart/form-data" class="p-12 space-y-8">
                 @csrf
                 @isset($member) @method('PUT') @endisset
 
@@ -67,10 +67,25 @@
                 </div>
 
                 <div class="space-y-3">
-                    <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">URL Foto Profil (Optional)</label>
-                    <input type="text" name="photo" value="{{ old('photo', $member->photo ?? '') }}" 
-                           class="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl px-6 py-4 text-slate-900 focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500 transition-all font-mono text-sm"
-                           placeholder="https://images.unsplash.com/photo-...">
+                    <label class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Foto Profil (Optional)</label>
+                    <div class="relative">
+                        <label for="team-photo-upload"
+                            class="flex flex-col items-center justify-center w-full h-48 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:bg-slate-100 hover:border-emerald-300 transition-all group"
+                            id="drop-zone">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-placeholder">
+                                <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                    <i data-lucide="upload-cloud" class="w-7 h-7 text-emerald-500"></i>
+                                </div>
+                                <p class="mb-1 text-sm font-bold text-slate-500">Klik untuk pilih foto <span class="text-emerald-500">atau drag & drop</span></p>
+                                <p class="text-xs text-slate-400">PNG, JPG, GIF, WEBP (Maks. 5MB)</p>
+                            </div>
+                            <img id="image-preview" class="hidden w-full h-full object-cover rounded-3xl" />
+                        </label>
+                        <input id="team-photo-upload" type="file" name="photo" accept="image/*" class="hidden" onchange="previewFile(this)" />
+                    </div>
+                    @error('photo')
+                        <p class="text-sm text-red-500 font-medium px-4">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="space-y-3">
@@ -97,4 +112,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    function previewFile(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('image-preview');
+                const placeholder = document.getElementById('upload-placeholder');
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('team-photo-upload');
+
+    ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => {
+            e.preventDefault();
+            dropZone.classList.add('border-emerald-400', 'bg-emerald-50');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => {
+            e.preventDefault();
+            dropZone.classList.remove('border-emerald-400', 'bg-emerald-50');
+        });
+    });
+
+    dropZone.addEventListener('drop', e => {
+        const files = e.dataTransfer.files;
+        if (files.length) {
+            fileInput.files = files;
+            previewFile(fileInput);
+        }
+    });
+</script>
 @endsection

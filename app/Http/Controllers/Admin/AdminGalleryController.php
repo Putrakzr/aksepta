@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminGalleryController extends Controller
 {
@@ -29,11 +30,15 @@ class AdminGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'image' => 'required|url',
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
 
-        \App\Models\Gallery::create($data);
+        $path = $request->file('image')->store('galleries', 'public');
+
+        \App\Models\Gallery::create([
+            'image' => '/storage/' . $path,
+        ]);
 
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery image added successfully.');
     }
@@ -51,11 +56,21 @@ class AdminGalleryController extends Controller
      */
     public function update(Request $request, \App\Models\Gallery $gallery)
     {
-        $data = $request->validate([
-            'image' => 'required|url',
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
 
-        $gallery->update($data);
+        // Delete old image if it's a local file
+        if ($gallery->image && str_starts_with($gallery->image, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $gallery->image);
+            Storage::disk('public')->delete($oldPath);
+        }
+
+        $path = $request->file('image')->store('galleries', 'public');
+
+        $gallery->update([
+            'image' => '/storage/' . $path,
+        ]);
 
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery image updated successfully.');
     }
@@ -65,6 +80,12 @@ class AdminGalleryController extends Controller
      */
     public function destroy(\App\Models\Gallery $gallery)
     {
+        // Delete image file
+        if ($gallery->image && str_starts_with($gallery->image, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $gallery->image);
+            Storage::disk('public')->delete($oldPath);
+        }
+
         $gallery->delete();
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery image removed successfully.');
     }
