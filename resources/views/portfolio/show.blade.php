@@ -6,7 +6,7 @@
     <div class="min-h-screen bg-white">
         <!-- Hero Header -->
         <header class="relative h-[40vh] min-h-[300px] flex items-end pb-12 overflow-hidden">
-            <img src="{{ $article->image }}" alt="{{ $article->title }}"
+            <img src="{{ asset($article->image) }}" alt="{{ $article->title }}"
                 class="absolute inset-0 w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
 
@@ -47,6 +47,29 @@
                         {!! nl2br(e($article->content)) !!}
                     </div>
                 </div>
+
+                <!-- Extra Visual Assets -->
+                @if($article->image_2 || $article->image_3)
+                <div class="mt-20 space-y-8">
+                    <div class="flex items-center gap-4">
+                        <div class="h-px flex-1 bg-slate-100"></div>
+                        <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Visual Gallery</h4>
+                        <div class="h-px flex-1 bg-slate-100"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        @if($article->image_2)
+                        <div class="rounded-3xl overflow-hidden shadow-xl border border-slate-100 group">
+                            <img src="{{ asset($article->image_2) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        @endif
+                        @if($article->image_3)
+                        <div class="rounded-3xl overflow-hidden shadow-xl border border-slate-100 group">
+                            <img src="{{ asset($article->image_3) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @endif
 
                 <!-- Footer Action -->
                 <div
