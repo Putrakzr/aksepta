@@ -35,11 +35,11 @@ class AdminGalleryController extends Controller
 
         $file = $request->file('image');
         $filename = time() . '_' . $file->getClientOriginalName();
-        // Move to real public/storage folder to avoid 403 symlink issues
-        $file->move(public_path('storage/galleries'), $filename);
+        // Move to real public/uploads folder to avoid server-level storage restrictions
+        $file->move(public_path('uploads/galleries'), $filename);
 
         \App\Models\Gallery::create([
-            'image' => '/storage/galleries/' . $filename,
+            'image' => '/uploads/galleries/' . $filename,
         ]);
 
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery image added successfully.');
@@ -63,7 +63,7 @@ class AdminGalleryController extends Controller
         ]);
 
         // Delete old image
-        if ($gallery->image && str_starts_with($gallery->image, '/storage/')) {
+        if ($gallery->image && str_starts_with($gallery->image, '/uploads/')) {
             $oldFile = public_path($gallery->image);
             if (file_exists($oldFile)) {
                 unlink($oldFile);
@@ -72,10 +72,10 @@ class AdminGalleryController extends Controller
 
         $file = $request->file('image');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('storage/galleries'), $filename);
+        $file->move(public_path('uploads/galleries'), $filename);
 
         $gallery->update([
-            'image' => '/storage/galleries/' . $filename,
+            'image' => '/uploads/galleries/' . $filename,
         ]);
 
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery image updated successfully.');
@@ -86,7 +86,7 @@ class AdminGalleryController extends Controller
      */
     public function destroy(\App\Models\Gallery $gallery)
     {
-        if ($gallery->image && str_starts_with($gallery->image, '/storage/')) {
+        if ($gallery->image && str_starts_with($gallery->image, '/uploads/')) {
             $oldFile = public_path($gallery->image);
             if (file_exists($oldFile)) {
                 unlink($oldFile);

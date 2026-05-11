@@ -44,8 +44,8 @@ class AdminTeamController extends Controller
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/team'), $filename);
-            $data['photo'] = '/storage/team/' . $filename;
+            $file->move(public_path('uploads/team'), $filename);
+            $data['photo'] = '/uploads/team/' . $filename;
         }
 
         TeamMember::create($data);
@@ -78,7 +78,7 @@ class AdminTeamController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            if ($team->photo && str_starts_with($team->photo, '/storage/')) {
+            if ($team->photo && str_starts_with($team->photo, '/uploads/')) {
                 $oldFile = public_path($team->photo);
                 if (file_exists($oldFile)) {
                     unlink($oldFile);
@@ -87,8 +87,8 @@ class AdminTeamController extends Controller
 
             $file = $request->file('photo');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/team'), $filename);
-            $data['photo'] = '/storage/team/' . $filename;
+            $file->move(public_path('uploads/team'), $filename);
+            $data['photo'] = '/uploads/team/' . $filename;
         } else {
             unset($data['photo']);
         }
@@ -103,7 +103,7 @@ class AdminTeamController extends Controller
      */
     public function destroy(TeamMember $team)
     {
-        if ($team->photo && str_starts_with($team->photo, '/storage/')) {
+        if ($team->photo && str_starts_with($team->photo, '/uploads/')) {
             $oldFile = public_path($team->photo);
             if (file_exists($oldFile)) {
                 unlink($oldFile);

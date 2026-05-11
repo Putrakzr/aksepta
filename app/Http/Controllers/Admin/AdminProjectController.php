@@ -38,8 +38,8 @@ class AdminProjectController extends Controller
 
         $file = $request->file('image');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('storage/projects'), $filename);
-        $data['image'] = '/storage/projects/' . $filename;
+        $file->move(public_path('uploads/projects'), $filename);
+        $data['image'] = '/uploads/projects/' . $filename;
 
         \App\Models\Project::create($data);
 
@@ -67,7 +67,7 @@ class AdminProjectController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($project->image && str_starts_with($project->image, '/storage/')) {
+            if ($project->image && str_starts_with($project->image, '/uploads/')) {
                 $oldFile = public_path($project->image);
                 if (file_exists($oldFile)) {
                     unlink($oldFile);
@@ -76,8 +76,8 @@ class AdminProjectController extends Controller
 
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/projects'), $filename);
-            $data['image'] = '/storage/projects/' . $filename;
+            $file->move(public_path('uploads/projects'), $filename);
+            $data['image'] = '/uploads/projects/' . $filename;
         } else {
             unset($data['image']);
         }
@@ -92,7 +92,7 @@ class AdminProjectController extends Controller
      */
     public function destroy(\App\Models\Project $project)
     {
-        if ($project->image && str_starts_with($project->image, '/storage/')) {
+        if ($project->image && str_starts_with($project->image, '/uploads/')) {
             $oldFile = public_path($project->image);
             if (file_exists($oldFile)) {
                 unlink($oldFile);

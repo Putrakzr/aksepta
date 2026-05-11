@@ -40,8 +40,8 @@ class AdminArticleController extends Controller
 
         $file = $request->file('image');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('storage/articles'), $filename);
-        $data['image'] = '/storage/articles/' . $filename;
+        $file->move(public_path('uploads/articles'), $filename);
+        $data['image'] = '/uploads/articles/' . $filename;
 
         \App\Models\Article::create($data);
 
@@ -71,7 +71,7 @@ class AdminArticleController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($article->image && str_starts_with($article->image, '/storage/')) {
+            if ($article->image && str_starts_with($article->image, '/uploads/')) {
                 $oldFile = public_path($article->image);
                 if (file_exists($oldFile)) {
                     unlink($oldFile);
@@ -80,8 +80,8 @@ class AdminArticleController extends Controller
 
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/articles'), $filename);
-            $data['image'] = '/storage/articles/' . $filename;
+            $file->move(public_path('uploads/articles'), $filename);
+            $data['image'] = '/uploads/articles/' . $filename;
         } else {
             unset($data['image']);
         }
@@ -96,7 +96,7 @@ class AdminArticleController extends Controller
      */
     public function destroy(\App\Models\Article $article)
     {
-        if ($article->image && str_starts_with($article->image, '/storage/')) {
+        if ($article->image && str_starts_with($article->image, '/uploads/')) {
             $oldFile = public_path($article->image);
             if (file_exists($oldFile)) {
                 unlink($oldFile);
