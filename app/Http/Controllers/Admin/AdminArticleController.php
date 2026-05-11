@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminArticleController extends Controller
 {
@@ -38,10 +39,8 @@ class AdminArticleController extends Controller
             'external_url' => 'required_if:type,link|nullable|url',
         ]);
 
-        $file = $request->file('image');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('uploads/articles'), $filename);
-        $data['image'] = '/uploads/articles/' . $filename;
+        $path = $request->file('image')->store('articles', 'public');
+        $data['image'] = Storage::url($path);
 
         \App\Models\Article::create($data);
 
@@ -71,18 +70,13 @@ class AdminArticleController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Delete old image if it's a local file
-            if ($article->image && str_starts_with($article->image, '/uploads/')) {
-                $oldFile = public_path($article->image);
-                if (file_exists($oldFile)) {
-                    unlink($oldFile);
-                }
+            if ($article->image) {
+                $oldPath = str_replace('/storage/', '', $article->image);
+                Storage::disk('public')->delete($oldPath);
             }
 
-            $file = $request->file('image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/articles'), $filename);
-            $data['image'] = '/uploads/articles/' . $filename;
+            $path = $request->file('image')->store('articles', 'public');
+            $data['image'] = Storage::url($path);
         } else {
             unset($data['image']);
         }
@@ -97,12 +91,9 @@ class AdminArticleController extends Controller
      */
     public function destroy(\App\Models\Article $article)
     {
-        // Delete image file
-        if ($article->image && str_starts_with($article->image, '/uploads/')) {
-            $oldFile = public_path($article->image);
-            if (file_exists($oldFile)) {
-                unlink($oldFile);
-            }
+        if ($article->image) {
+            $oldPath = str_replace('/storage/', '', $article->image);
+            Storage::disk('public')->delete($oldPath);
         }
 
         $article->delete();
