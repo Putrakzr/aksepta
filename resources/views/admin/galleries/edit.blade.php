@@ -27,7 +27,7 @@
 
                     <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Gambar Saat Ini</p>
-                        <img src="{{ $gallery->image }}" class="w-full h-48 object-cover rounded-2xl shadow-sm">
+                        <img src="{{ asset($gallery->image) }}" class="w-full h-48 object-cover rounded-2xl shadow-sm">
                     </div>
 
                     <div class="space-y-4">

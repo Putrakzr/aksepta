@@ -62,7 +62,7 @@
                                 Thumbnail</label>
                             @if($article->image)
                                 <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 mb-2">
-                                    <img src="{{ $article->image }}" class="w-full h-24 object-cover rounded-xl">
+                                    <img src="{{ asset($article->image) }}" class="w-full h-40 object-cover rounded-2xl shadow-sm">
                                 </div>
                             @endif
                             <div class="relative">

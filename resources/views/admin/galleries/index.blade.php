@@ -23,7 +23,7 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         @foreach($images as $image)
         <div class="group relative aspect-square bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
-            <img src="{{ $image->image }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <img src="{{ asset($image->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
             <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 <a href="{{ route('admin.galleries.edit', $image) }}" class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-slate-900 hover:bg-primary-500 hover:text-white transition-all scale-75 group-hover:scale-100 duration-300">
                     <i data-lucide="edit-3" class="w-4 h-4"></i>

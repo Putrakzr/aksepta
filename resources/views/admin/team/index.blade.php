@@ -38,7 +38,7 @@
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl border border-slate-200 shadow-sm overflow-hidden bg-slate-100 flex-shrink-0">
                                     @if($member->photo)
-                                        <img src="{{ $member->photo }}" class="w-full h-full object-cover">
+                                        <img src="{{ asset($member->photo) }}" class="w-full h-full object-cover">
                                     @else
                                         <div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-50">
                                             <i data-lucide="{{ $member->icon ?: 'user' }}" class="w-5 h-5"></i>

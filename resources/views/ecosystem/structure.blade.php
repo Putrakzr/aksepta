@@ -64,7 +64,7 @@
                             <div class="relative">
                                 <div class="aspect-square bg-gradient-to-br from-white/10 to-transparent rounded-[40px] flex items-center justify-center border border-white/5 overflow-hidden">
                                     @if($founder->photo)
-                                        <img src="{{ $founder->photo }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                        <img src="{{ asset($founder->photo) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                                     @else
                                         <i data-lucide="{{ $founder->icon ?: 'user' }}" class="w-32 h-32 text-slate-700 opacity-50 group-hover:scale-110 transition-transform duration-700"></i>
                                     @endif
@@ -90,7 +90,7 @@
                         <div class="space-y-8">
                             <div class="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 overflow-hidden">
                                 @if($firstLeader->photo)
-                                    <img src="{{ $firstLeader->photo }}" class="w-full h-full object-cover">
+                                    <img src="{{ asset($firstLeader->photo) }}" class="w-full h-full object-cover">
                                 @else
                                     <i data-lucide="{{ $firstLeader->icon ?: 'search' }}" class="w-8 h-8"></i>
                                 @endif
@@ -121,7 +121,7 @@
                             <div class="flex flex-col sm:flex-row gap-6">
                                 <div class="w-14 h-14 bg-primary-500/20 rounded-2xl flex-shrink-0 flex items-center justify-center text-primary-400 overflow-hidden">
                                     @if($leader->photo)
-                                        <img src="{{ $leader->photo }}" class="w-full h-full object-cover">
+                                        <img src="{{ asset($leader->photo) }}" class="w-full h-full object-cover">
                                     @else
                                         <i data-lucide="{{ $leader->icon ?: 'video' }}" class="w-7 h-7"></i>
                                     @endif
@@ -156,7 +156,7 @@
                         <div class="px-6 py-8 bg-white/5 border border-white/5 rounded-3xl text-center group hover:bg-white/10 transition-all duration-300">
                             <div class="w-10 h-10 {{ $member->photo ? '' : 'bg-slate-800' }} rounded-lg mx-auto mb-4 flex items-center justify-center text-slate-500 group-hover:text-emerald-400 overflow-hidden">
                                 @if($member->photo)
-                                    <img src="{{ $member->photo }}" class="w-full h-full object-cover">
+                                    <img src="{{ asset($member->photo) }}" class="w-full h-full object-cover">
                                 @else
                                     <i data-lucide="{{ $member->icon ?: 'user-check' }}" class="w-5 h-5"></i>
                                 @endif

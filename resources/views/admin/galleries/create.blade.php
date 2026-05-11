@@ -1,6 +1,7 @@
 @extends('layouts.admin_frame')
 
 
+
 @section('content')
     <div class="min-h-screen bg-slate-50 p-6 pb-20">
         <div class="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,15 +37,18 @@
                                 class="flex flex-col items-center justify-center w-full h-64 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:bg-slate-100 hover:border-rose-300 transition-all group"
                                 id="drop-zone">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-placeholder">
-                                    <div class="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                    <div
+                                        class="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                         <i data-lucide="upload-cloud" class="w-8 h-8 text-rose-500"></i>
                                     </div>
-                                    <p class="mb-2 text-sm font-bold text-slate-500">Klik untuk pilih gambar <span class="text-rose-500">atau drag & drop</span></p>
+                                    <p class="mb-2 text-sm font-bold text-slate-500">Klik untuk pilih gambar <span
+                                            class="text-rose-500">atau drag & drop</span></p>
                                     <p class="text-xs text-slate-400">PNG, JPG, GIF, WEBP (Maks. 5MB)</p>
                                 </div>
                                 <img id="image-preview" class="hidden w-full h-full object-cover rounded-3xl" />
                             </label>
-                            <input id="image-upload" type="file" name="image" accept="image/*" class="hidden" onchange="previewFile(this)" />
+                            <input id="image-upload" type="file" name="image" accept="image/*" class="hidden"
+                                onchange="previewFile(this)" />
                         </div>
                         @error('image')
                             <p class="text-sm text-red-500 font-medium px-4">{{ $message }}</p>
@@ -74,7 +78,7 @@
         function previewFile(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     const preview = document.getElementById('image-preview');
                     const placeholder = document.getElementById('upload-placeholder');
                     preview.src = e.target.result;

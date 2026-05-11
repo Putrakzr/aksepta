@@ -37,7 +37,7 @@
                     <tr class="group hover:bg-slate-50/50 transition-colors">
                         <td class="px-6 py-4">
                             <div class="w-20 h-14 rounded-xl border border-slate-200 shadow-sm overflow-hidden bg-slate-100">
-                                <img src="{{ $project->image }}" class="w-full h-full object-cover">
+                                <img src="{{ asset($project->image) }}" class="w-full h-full object-cover">
                             </div>
                         </td>
                         <td class="px-6 py-4 text-sm">

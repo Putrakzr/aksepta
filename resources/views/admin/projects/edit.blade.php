@@ -53,7 +53,7 @@
                         @if($project->image)
                             <div class="p-4 bg-slate-50 rounded-3xl border border-slate-100">
                                 <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Gambar Saat Ini</p>
-                                <img src="{{ $project->image }}" class="w-full h-40 object-cover rounded-2xl shadow-sm">
+                                <img src="{{ asset($project->image) }}" class="w-full h-40 object-cover rounded-2xl shadow-sm">
                             </div>
                         @endif
                         <div class="relative">

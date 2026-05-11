@@ -27,7 +27,7 @@
                 @foreach ($galleries as $gallery)
                     <div
                         class="group relative aspect-[4/5] rounded-[40px] overflow-hidden shadow-sm hover:shadow-3xl transition-all duration-700 border border-slate-100 cursor-pointer">
-                        <img src="{{ $gallery->image }}"
+                        <img src="{{ asset($gallery->image) }}"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out">
 
                         <!-- Sophisticated Overlay -->

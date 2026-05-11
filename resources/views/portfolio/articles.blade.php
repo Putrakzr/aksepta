@@ -22,7 +22,7 @@
                         class="group bg-white rounded-[40px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col">
                         <!-- Thumbnail with Overlay Badge -->
                         <div class="relative aspect-video overflow-hidden">
-                            <img src="{{ $article->image }}" alt="{{ $article->title }}"
+                            <img src="{{ asset($article->image) }}" alt="{{ $article->title }}"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
                             <div class="absolute top-6 left-6">

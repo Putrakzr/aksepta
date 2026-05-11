@@ -23,7 +23,10 @@
     <!-- Main Portfolio Interface -->
     <section class="py-24 bg-white" x-data="{ 
         activeTab: 'all',
-        projects: {{ $projects->toJson() }}
+        projects: {{ $projects->map(function($p) { 
+            $p->image = asset($p->image); 
+            return $p; 
+        })->toJson() }}
     }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Filter Tabs -->
@@ -86,7 +89,7 @@
                          @foreach ($articles->take(3) as $article)
                          <a href="#" class="flex gap-6 p-6 bg-white rounded-3xl border border-slate-100 hover:shadow-xl transition-all group">
                              <div class="w-24 h-24 bg-slate-100 rounded-2xl flex-shrink-0 overflow-hidden">
-                                 <img src="{{ $article->image }}" class="w-full h-full object-cover">
+                                 <img src="{{ asset($article->image) }}" class="w-full h-full object-cover">
                              </div>
                              <div class="space-y-2">
                                  <h4 class="font-bold text-slate-900 group-hover:text-primary-600 transition-colors">{{ $article->title }}</h4>
@@ -109,7 +112,7 @@
                          @foreach($galleries->take(4) as $index => $item)
                          <div class="bg-white rounded-[32px] overflow-hidden group shadow-md hover:shadow-xl transition-all {{ $index % 2 != 0 ? 'pt-8' : '' }}">
                              <div class="{{ $index % 2 == 0 ? 'aspect-square' : 'aspect-[3/4]' }}">
-                                <img src="{{ $item->image }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <img src="{{ asset($item->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                              </div>
                          </div>
                          @endforeach
