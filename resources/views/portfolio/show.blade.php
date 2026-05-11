@@ -3,11 +3,10 @@
 @section('title', $article->title)
 
 @section('content')
-<!-- Import Playfair Display Font for Magazine Feel -->
+<!-- Import Playfair Display Font -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 <div class="min-h-screen bg-[#F3F3F1] py-20 px-4">
-    <!-- Main Magazine Container -->
     <article class="max-w-[1000px] mx-auto bg-white shadow-[0_0_50px_rgba(0,0,0,0.05)] border border-slate-100 p-8 md:p-16 relative overflow-hidden">
         
         <!-- Magazine Top Header -->
@@ -16,9 +15,9 @@
             <span>LICERIA & CO. // VOL. 2026</span>
         </div>
 
-        <!-- Title & Hero Section Grid -->
+        <!-- Title & Stacked Photos Section -->
         <div class="grid md:grid-cols-12 gap-12 mb-12">
-            <!-- Left Side: Title & Lead Text -->
+            <!-- Left Side: Title & Content -->
             <div class="md:col-span-7 space-y-8">
                 <h1 class="text-5xl md:text-7xl font-['Playfair_Display'] font-black text-slate-900 leading-[1.1] tracking-tight">
                     {{ $article->title }}
@@ -36,42 +35,43 @@
                     @endphp
                     {!! nl2br(e($firstPara)) !!}
                 </div>
-            </div>
 
-            <!-- Right Side: Vertical Main Image -->
-            <div class="md:col-span-5">
-                <div class="relative h-full min-h-[500px]">
-                    <img src="{{ asset($article->image) }}" class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 shadow-xl">
+                <!-- Sisa Konten di bawah dropcap -->
+                <div class="font-['Lora'] text-lg text-slate-700 leading-relaxed text-justify space-y-6 pt-4">
+                    @foreach($paragraphs as $para)
+                        @if(trim($para))
+                            <p>{!! nl2br(e($para)) !!}</p>
+                        @endif
+                    @endforeach
                 </div>
             </div>
-        </div>
 
-        <!-- Middle Section: Content & Image 2 -->
-        <div class="grid md:grid-cols-12 gap-12 mb-12">
-            <!-- Content Continue -->
-            <div class="md:col-span-7 font-['Lora'] text-lg text-slate-700 leading-relaxed text-justify space-y-6">
-                @foreach($paragraphs as $para)
-                    @if(trim($para))
-                        <p>{!! nl2br(e($para)) !!}</p>
-                    @endif
-                @endforeach
-            </div>
+            <!-- Right Side: Two Photos Stacked (Atas-Bawah) -->
+            <div class="md:col-span-5 flex flex-col gap-8">
+                <!-- Foto 1 (Atas) -->
+                <div class="relative w-full aspect-[3/4] overflow-hidden shadow-xl">
+                    <img src="{{ asset($article->image) }}" class="w-full h-full object-cover">
+                    <div class="absolute bottom-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 text-[8px] font-black text-white uppercase tracking-widest">
+                        Fig. 01
+                    </div>
+                </div>
 
-            <!-- Image 2 & 3 Side -->
-            <div class="md:col-span-5 space-y-12">
+                <!-- Foto 2 (Bawah) -->
                 @if($article->image_2)
-                <div class="relative pt-4">
-                    <!-- Red decorative box behind image -->
-                    <div class="absolute -top-4 -right-4 w-full h-full bg-[#964B4B]/10 -z-10"></div>
-                    <img src="{{ asset($article->image_2) }}" class="w-full aspect-square object-cover shadow-2xl border-4 border-white">
+                <div class="relative w-full aspect-[3/4] overflow-hidden shadow-xl">
+                    <img src="{{ asset($article->image_2) }}" class="w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute bottom-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 text-[8px] font-black text-white uppercase tracking-widest">
+                        Fig. 02
+                    </div>
                 </div>
                 @endif
 
+                <!-- Foto 3 (Jika ada) -->
                 @if($article->image_3)
-                <div class="relative">
-                    <img src="{{ asset($article->image_3) }}" class="w-full aspect-[3/4] object-cover shadow-xl grayscale">
-                    <p class="mt-4 font-['Lora'] italic text-sm text-slate-500 border-l-2 border-[#964B4B] pl-4">
-                        "Eksplorasi visual dan dokumentasi strategis dalam setiap langkah operasional Aksepta."
+                <div class="relative pt-4 border-t border-slate-100">
+                    <img src="{{ asset($article->image_3) }}" class="w-full aspect-video object-cover shadow-sm grayscale">
+                    <p class="mt-4 font-['Lora'] italic text-xs text-slate-400">
+                        *Dokumentasi tambahan terkait "{{ $article->title }}"
                     </p>
                 </div>
                 @endif
@@ -88,11 +88,4 @@
         </div>
     </article>
 </div>
-
-<style>
-    /* Magazine specific overrides */
-    p {
-        hyphens: auto;
-    }
-</style>
 @endsection
